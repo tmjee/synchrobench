@@ -11,7 +11,7 @@
 
     function drawChart() {
 
-      var data1 = new google.visualization.DataTable();
+      /*var data1 = new google.visualization.DataTable();
       data1.addColumn('number', 'Threads');
       data1.addColumn('number', 'SynchronizedSet-noTx');
       data1.addColumn('number', 'ConcurrentSkipList-noTx');
@@ -39,7 +39,7 @@
             0: {side: 'top'}
           }
         }
-      };
+      };*/
       
       var data2 = new google.visualization.DataTable();
       data2.addColumn('number', 'Threads');
@@ -73,10 +73,10 @@
       };
 
 
-      var chart1 = new google.charts.Line(document.getElementById('without-noop'));
+      //var chart1 = new google.charts.Line(document.getElementById('without-noop'));
       var chart2 = new google.charts.Line(document.getElementById('all'));
 
-      chart1.draw(data1, options1);
+      //chart1.draw(data1, options1);
       chart2.draw(data2, options2);
     }
     
