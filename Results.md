@@ -2,7 +2,7 @@
 Cause it's easier to visualise.
 
 ### Graph 1
-This [Graph 1](https://rawgit.com/tmjee/synchrobench/master/graph.html) shows the throughput of the followings 
+This [Graph 1 (throughput #1)](https://rawgit.com/tmjee/synchrobench/master/graph.html) shows the throughput of the followings 
 - NoOpSet-noTx
 - NoOpSet-withTx
 - SychronizedSet-noTx
@@ -14,7 +14,7 @@ This [Graph 1](https://rawgit.com/tmjee/synchrobench/master/graph.html) shows th
 
 
 ### Graph 2
-This [Graph](https://rawgit.com/tmjee/synchrobench/master/graph2.html) shows the throughput of the followings
+This [Graph (Throughut #2](https://rawgit.com/tmjee/synchrobench/master/graph.html) shows the throughput of the followings
 - SychronizedSet-noTx
 - SynchronizedSet-withTx
 - ConcurrentSkipListSet-noTx
