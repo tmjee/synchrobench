@@ -1,17 +1,15 @@
 <html>
-  <body>
-  <div id="all"></div>
-  <hr/>
-  <div id="without-noop"></div>
+  <head>
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>  
 
   <script type="text/javascript">
-    google.load('visualization', '1.1', {packages: ['line']});
-    google.setOnLoadCallback(drawChart);
+    google.load('visualization', '1', {packages: ['corechart','line']});
+    google.setOnLoadCallback(drawChart1);
+    
 
-    function drawChart() {
+    function drawChart1() {
 
-      /*var data1 = new google.visualization.DataTable();
+      var data1 = new google.visualization.DataTable();
       data1.addColumn('number', 'Threads');
       data1.addColumn('number', 'SynchronizedSet-noTx');
       data1.addColumn('number', 'ConcurrentSkipList-noTx');
@@ -28,10 +26,7 @@
       ]);
 
       var options1 = {
-        chart: {
-          title: 'Throughput',
-          subtitle: 'Throughput of DataTypes across threads'
-        },
+	title: 'Throughput #1',
         width: 900,
         height: 500,
         axes: {
@@ -39,9 +34,32 @@
             0: {side: 'top'}
           }
         }
-      };*/
+      };
+
+      var chart1 = new google.visualization.LineChart(document.getElementById('without-noop'));
+      chart1.draw(data1, options1);
+    }
+</script>
+
+
+
+
+
+<script>
+
+
+
+	google.load('visualization', '1', {packages: ['corechart','line']});
+	google.setOnLoadCallback(drawChart2);
+
+ 	function drawChart2() {
+
       
-      var data2 = new google.visualization.DataTable();
+
+
+
+
+	var data2 = new google.visualization.DataTable();
       data2.addColumn('number', 'Threads');
       data2.addColumn('number', 'SynchronizedSet-noTx');
       data2.addColumn('number', 'NoOpSet-noTx');
@@ -59,10 +77,7 @@
         [6,  8855962.4, 151126132.0, 15031365.4, 8489702.0, 114845480.5, 12944830.7]
       ]);
       var options2 = {
-        chart: {
-          title: 'Throughput',
-          subtitle: 'Throughput of DataTypes across threads'
-        },
+	title: 'Throughput #2',
         width: 900,
         height: 500,
         axes: {
@@ -73,13 +88,21 @@
       };
 
 
-      //var chart1 = new google.charts.Line(document.getElementById('without-noop'));
-      var chart2 = new google.charts.Line(document.getElementById('all'));
-
-      //chart1.draw(data1, options1);
+	
+      var chart2 = new google.visualization.LineChart(document.getElementById('all'));
       chart2.draw(data2, options2);
+
     }
     
   </script>
+
+
+  </head>
+  <body>
+
+  <div id="without-noop" style="width: 900px; height: 500px;"></div>
+
+<div id="all" style="width: 900px; height: 500px;"></div>
+  
   </body>
 </html>
