@@ -50,9 +50,9 @@ public class ThreadSetLoop implements Runnable {
 	/**
 	 * The distribution of methods as an array of percentiles
 	 * 
-	 * 0%        cdf[0]        cdf[2]                     100%
+	 * 0%        cdf[0]        cdf[1]       cdf[2]        100%
 	 * |--writeAll--|--writeSome--|--readAll--|--readSome--|
-	 * |-----------write----------|--readAll--|--readSome--| cdf[1]
+	 * |-----------write----------|--readAll--|--readSome--|
 	 */
 	int[] cdf = new int[3];
 

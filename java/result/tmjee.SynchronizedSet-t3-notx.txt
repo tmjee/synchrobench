@@ -1,0 +1,72 @@
+java -server  \
+-cp bin \
+contention.benchmark.Test \
+-v -W 2 -u 20 -a 0 -s 0 -l 2000 -t 3 -i 4096 -r 8192 -b tmjee.SynchronizedSet
+-------------------------------------------------------------------------------
+Synchrobench-java
+A benchmark-suite to evaluate synchronization techniques
+-------------------------------------------------------------------------------
+
+Benchmark parameters
+--------------------
+  Detailed stats:          	enabled
+  Number of threads:       	3
+  Length:                  	5000 ms
+  Write ratio:             	20 %
+  WriteAll ratio:          	0 %
+  Snapshot ratio:          	0 %
+  Size:                    	4096 elts
+  Range:                   	8192 elts
+  WarmUp:                  	2 s
+  Iterations:              	1
+  Benchmark:               	tmjee.SynchronizedSet
+waiting for join
+Thread #1 finished.
+Thread #0 finished.
+Thread #2 finished.
+waiting for join
+Thread #1 finished.
+Thread #2 finished.
+Thread #0 finished.
+-------------------------------------------------------------------------------
+Benchmark statistics
+-------------------------------------------------------------------------------
+  Average traversal length: 	NaN
+  Struct Modifications:     	0
+  Throughput (ops/s):       	7519536.092781443
+  Elapsed time (s):         	5.001
+  Operations:               	37605200	( 100 %)
+    effective updates:     	3759143	( 10.00 %)
+    |--add successful:     	1879570	( 5.00 %)
+    |--remove succ.:       	1879573	( 5.00 %)
+    |--addAll succ.:       	0	( 0.00 %)
+    |--removeAll succ.:    	0	( 0.00 %)
+    size successful:       	0	( 0.00 %)
+    contains succ.:        	15039632	( 39.99 %)
+    unsuccessful ops:      	18806425	( 50.01 %)
+  Final size:              	4093
+  Expected size:           	4093
+-------------------------------------------------------------------------------
+TM statistics
+-------------------------------------------------------------------------------
+  Commits:                  	0
+  |--regular read only  (%) 	0	( NaN %)
+  |--elastic (%)            	0	( NaN %)
+  |--regular update (%)     	0	( NaN %)
+  Starts:                   	0
+  Aborts:                   	0	( 100 %)
+  |--between succ. reads:   	0	( NaN %)
+  |--between read & write:  	0	( NaN %)
+  |--extend upon read:      	0	( NaN %)
+  |--write after read:      	0	( NaN %)
+  |--locked on write:       	0	( NaN %)
+  |--locked before read:    	0	( NaN %)
+  |--locked before eread:   	0	( NaN %)
+  |--locked on read:        	0	( NaN %)
+  |--invalid commit:        	0	( NaN %)
+  |--invalid snapshot:      	0	( NaN %)
+  Read set size on avg.:    	NaN
+  Write set size on avg.:   	NaN
+  Tx time-to-commit on avg.:	NaN microsec
+  Number of elastic reads       0
+  Number of reads in RO prefix  0

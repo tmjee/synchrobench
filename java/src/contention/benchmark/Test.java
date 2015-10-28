@@ -12,6 +12,8 @@ import contention.abstractions.CompositionalMap;
 import contention.abstractions.CompositionalSortedSet;
 import contention.abstractions.MaintenanceAlg;
 
+import static java.lang.String.format;
+
 /**
  * Synchrobench-java, a benchmark to evaluate the implementations of 
  * high level abstractions including Map and Set.
@@ -111,14 +113,17 @@ public class Test {
 	public void instanciateAbstraction(
 			String benchName) {
 		try {
-			Class<CompositionalMap<Integer, Integer>> benchClass = (Class<CompositionalMap<Integer, Integer>>) Class
-					.forName(benchName);
-			Constructor<CompositionalMap<Integer, Integer>> c = benchClass
-					.getConstructor();
+			Class<?> benchClass = Class.forName(benchName);
+
+			if (BenchClassFactory.class.isAssignableFrom((Class<?>) benchClass)) {
+				benchClass = ((BenchClassFactory) benchClass.newInstance()).benchClass();
+			}
+
+			Constructor<?> c = benchClass .getConstructor();
 			methods = benchClass.getDeclaredMethods();
-			
+
 			if (CompositionalIntSet.class.isAssignableFrom((Class<?>) benchClass)) {
-				setBench = (CompositionalIntSet)c.newInstance();
+				setBench = (CompositionalIntSet) c.newInstance();
 				benchType = Type.INTSET;
 			} else if (CompositionalMap.class.isAssignableFrom((Class<?>) benchClass)) {
 				mapBench = (CompositionalMap<Integer, Integer>) c.newInstance();
@@ -126,8 +131,10 @@ public class Test {
 			} else if (CompositionalSortedSet.class.isAssignableFrom((Class<?>) benchClass)) {
 				sortedBench = (CompositionalSortedSet<Integer>) c.newInstance();
 				benchType = Type.SORTEDSET;
+			} else {
+				throw new IllegalArgumentException(format("Unknown benchClass %s", benchClass));
 			}
-			
+
 		} catch (Exception e) {
 			System.err.println("Cannot find benchmark class: " + benchName);
 			System.exit(-1);
@@ -219,6 +226,7 @@ public class Test {
 				break;
 			}
 		}
+		System.out.println("waiting for join");
 		for (Thread thread : threads)
 			thread.join();
 

@@ -28,7 +28,8 @@ ifeq ($(OS_NAME), Darwin)
 endif
 
 ifeq ($(OS_NAME), Linux)
-    JDK_RT ?= /usr/lib/jvm/java-1.7.0-openjdk-amd64/jre/lib/rt.jar
+#    JDK_RT ?= /usr/lib/jvm/java-1.7.0-openjdk-amd64/jre/lib/rt.jar
+     JDK_RT ?= /usr/lib/jvm/jdk1.7.0_79/jre/lib/rt.jar
 endif
 
 ifeq ($(OS_NAME), SunOS)
@@ -74,6 +75,26 @@ compilev:
 	${ANT} -v jarbench
 	${ANT} -v jardeuce
 
+
+
+notx:
+	${JAVA} ${JAVAOPT} \
+	-cp bin \
+	contention.benchmark.Test \
+	-v -W 2 -u 20 -a 0 -s 0 -l 2000 -t ${N_THREADS} -i 4096 -r 8192 -b ${BENCH_CLASS}
+
+
+withtx:
+	${JAVA} ${JAVAOPT} -Dorg.deuce.exclude="java.util.*,java.lang.*,sun.*" \
+	-javaagent:${AGENT} \
+	-Dorg.deuce.transaction.contextClass=org.deuce.transaction.${SYNC} \
+	-cp ${BENCH}:${MYDEUCE}:bin \
+	-Xbootclasspath/p:${RT} \
+	contention.benchmark.Test \
+	-v -W 2 -u 20 -a 0 -s 0 -d 2000 -t ${N_THREADS} -i 4096 -r 8192 -b ${BENCH_CLASS}
+
+
+
 check:
 	${JAVA} ${JAVAOPT} -Dorg.deuce.exclude="java.util.*,java.lang.*,sun.*" \
 	-javaagent:${AGENT} \
@@ -82,6 +103,36 @@ check:
 	-Xbootclasspath/p:${RT} \
 	contention.benchmark.Test \
 	-v -W 2 -u 20 -a 0 -s 0 -d 2000 -t 64 -i 4096 -r 8192 -b arrays.transactional.Vector
+
+check-noop:
+	${JAVA} ${JAVAOPT} -Dorg.deuce.exclude="java.util.*,java.lang.*,sun.*" \
+	-javaagent:${AGENT} \
+	-Dorg.deuce.transaction.contextClass=org.deuce.transaction.${SYNC} \
+	-cp ${BENCH}:${MYDEUCE}:bin \
+	-Xbootclasspath/p:${RT} \
+	contention.benchmark.Test \
+	-v -W 2 -u 20 -a 0 -s 0 -d 2000 -t 5 -i 4096 -r 8192 -b tmjee.NoOpSet
+
+check-csls:
+	${JAVA} ${JAVAOPT} -ea -Dorg.deuce.exclude="java.util.*,java.lang.*,sun.*" \
+	-javaagent:${AGENT} \
+	-Dorg.deuce.transaction.contextClass=org.deuce.transaction.${SYNC} \
+	-cp ${BENCH}:${MYDEUCE}:bin \
+	-Xbootclasspath/p:${RT} \
+	contention.benchmark.Test \
+	-v -W 2 -u 20 -a 0 -s 0 -d 2000 -t 5 -i 4096 -r 8192 -b tmjee.ConcurrentSkipListSet
+
+check-notx-csls:
+	${JAVA} ${JAVAOPT} \
+	-cp bin \
+	contention.benchmark.Test \
+	-v -W 2 -u 20 -a 0 -s 0 -l 2000 -t 5 -i 4096 -r 8192 -b tmjee.ConcurrentSkipListSet
+
+check-notx-noop:
+	${JAVA} ${JAVAOPT} \
+	-cp bin \
+	contention.benchmark.Test \
+	-v -W 2 -u 20 -a 0 -s 0 -l 2000 -t ${N_THREADS} -i 4096 -r 8192 -b tmjee.NoOpSet
 
 check-notx:
 	${JAVA} ${JAVAOPT} \

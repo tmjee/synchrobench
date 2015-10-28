@@ -1,0 +1,36 @@
+// all
+data.addColumn('number', 'Threads');
+      data.addColumn('number', 'SynchronizedSet-noTx');
+      data.addColumn('number', 'NoOpSet-noTx');
+      data.addColumn('number', 'ConcurrentSkipList-noTx');
+      data.addColumn('number', 'SynchronizedSet-withTx');
+      data.addColumn('number', 'NoOpSet-withTx');
+      data.addColumn('number', 'ConcurrentSkipList-withTx');
+
+      data.addRows([
+        [1,  16241919.6, 32930979.6, 2871044.2, 16553792.5, 26172808.5, 2842754.1],
+        [2,  6868742.6, 68130372.9, 6273723.2, 6597659.6, 50567013.4, 5585528.9],
+        [3,  7519536.0, 103926782.2, 8976888.4, 6513156.4, 74624998.5, 8110790.3],
+        [4,  9110605.5, 125912879.6, 11449983.4, 8800442.8, 91740368.9, 9639530.7],
+        [5,  9014988.6, 158011864.9, 13680673.7, 9045388.9, 103860969.5, 11492947.0],
+        [6,  8855962.4, 151126132.0, 15031365.4, 8489702.0, 114845480.5, 12944830.7] 
+      ]);
+
+
+// without noop
+data.addColumn('number', 'Threads');
+      data.addColumn('number', 'SynchronizedSet-noTx');
+      data.addColumn('number', 'ConcurrentSkipList-noTx');
+      data.addColumn('number', 'SynchronizedSet-withTx');
+      data.addColumn('number', 'ConcurrentSkipList-withTx');
+
+      data.addRows([
+        [1,  16241919.6,  2871044.2, 16553792.5,  2842754.1],
+        [2,  6868742.6,  6273723.2, 6597659.6,  5585528.9],
+        [3,  7519536.0,  8976888.4, 6513156.4,  8110790.3],
+        [4,  9110605.5,  11449983.4, 8800442.8,  9639530.7],
+        [5,  9014988.6,  13680673.7, 9045388.9,  11492947.0],
+        [6,  8855962.4,  15031365.4, 8489702.0,  12944830.7] 
+      ]);
+
+// 

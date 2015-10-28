@@ -1,0 +1,80 @@
+java -server  -Dorg.deuce.exclude="java.util.*,java.lang.*,sun.*" \
+-javaagent:lib/deuceAgent-1.3.0.jar \
+-Dorg.deuce.transaction.contextClass=org.deuce.transaction.estmmvcc.Context \
+-cp lib/compositional-deucestm-0.1.jar:lib/mydeuce.jar:bin \
+-Xbootclasspath/p:lib/rt_instrumented.jar \
+contention.benchmark.Test \
+-v -W 2 -u 20 -a 0 -s 0 -d 2000 -t 5 -i 4096 -r 8192 -b tmjee.NoOpSet
+Found!!! stm org.deuce.transaction.estmmvcc.Context
+-------------------------------------------------------------------------------
+Synchrobench-java
+A benchmark-suite to evaluate synchronization techniques
+-------------------------------------------------------------------------------
+
+Benchmark parameters
+--------------------
+  Detailed stats:          	enabled
+  Number of threads:       	5
+  Length:                  	2000 ms
+  Write ratio:             	20 %
+  WriteAll ratio:          	0 %
+  Snapshot ratio:          	0 %
+  Size:                    	4096 elts
+  Range:                   	8192 elts
+  WarmUp:                  	2 s
+  Iterations:              	1
+  Benchmark:               	tmjee.NoOpSet
+waiting for join
+Thread #0 finished.
+Thread #3 finished.
+Thread #4 finished.
+Thread #1 finished.
+Thread #2 finished.
+waiting for join
+Thread #2 finished.
+Thread #1 finished.
+Thread #3 finished.
+Thread #0 finished.
+Thread #4 finished.
+-------------------------------------------------------------------------------
+Benchmark statistics
+-------------------------------------------------------------------------------
+  Average traversal length: 	NaN
+  Struct Modifications:     	0
+  Throughput (ops/s):       	1.0386096954568148E8
+  Elapsed time (s):         	2.003
+  Operations:               	208033522	( 100 %)
+    effective updates:     	41613782	( 20.00 %)
+    |--add successful:     	20809211	( 10.00 %)
+    |--remove succ.:       	20804571	( 10.00 %)
+    |--addAll succ.:       	0	( 0.00 %)
+    |--removeAll succ.:    	0	( 0.00 %)
+    size successful:       	0	( 0.00 %)
+    contains succ.:        	166419740	( 80.00 %)
+    unsuccessful ops:      	0	( 0.00 %)
+  Final size:              	0
+  Expected size:           	8736
+-------------------------------------------------------------------------------
+TM statistics
+-------------------------------------------------------------------------------
+  Commits:                  	0
+  |--regular read only  (%) 	0	( NaN %)
+  |--elastic (%)            	0	( NaN %)
+  |--regular update (%)     	0	( NaN %)
+  Starts:                   	0
+  Aborts:                   	0	( 100 %)
+  |--between succ. reads:   	0	( NaN %)
+  |--between read & write:  	0	( NaN %)
+  |--extend upon read:      	0	( NaN %)
+  |--write after read:      	0	( NaN %)
+  |--locked on write:       	0	( NaN %)
+  |--locked before read:    	0	( NaN %)
+  |--locked before eread:   	0	( NaN %)
+  |--locked on read:        	0	( NaN %)
+  |--invalid commit:        	0	( NaN %)
+  |--invalid snapshot:      	0	( NaN %)
+  Read set size on avg.:    	NaN
+  Write set size on avg.:   	NaN
+  Tx time-to-commit on avg.:	NaN microsec
+  Number of elastic reads       0
+  Number of reads in RO prefix  0
