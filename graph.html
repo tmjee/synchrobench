@@ -1,1 +1,72 @@
+<html>
+  <body>
+  <div id="all"></div>
+  <div id="without-noop"></div>
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>  
 
+  <script type="text/javascript">
+    google.load('visualization', '1.1', {packages: ['line']});
+    google.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+      var data1 = new google.visualization.DataTable();
+      data1.addColumn('number', 'Threads');
+      data1.addColumn('number', 'SynchronizedSet-noTx');
+      data1.addColumn('number', 'ConcurrentSkipList-noTx');
+      data1.addColumn('number', 'SynchronizedSet-withTx');
+      data1.addColumn('number', 'ConcurrentSkipList-withTx');
+
+      data1.addRows([
+        [1,  16241919.6,  2871044.2, 16553792.5,  2842754.1],
+        [2,  6868742.6,  6273723.2, 6597659.6,  5585528.9],
+        [3,  7519536.0,  8976888.4, 6513156.4,  8110790.3],
+        [4,  9110605.5,  11449983.4, 8800442.8,  9639530.7],
+        [5,  9014988.6,  13680673.7, 9045388.9,  11492947.0],
+        [6,  8855962.4,  15031365.4, 8489702.0,  12944830.7] 
+      ]);
+
+      var options1 = {
+        chart: {
+          title: 'Throughput',
+          subtitle: 'Throughput of DataTypes across threads'
+        },
+        width: 900,
+        height: 500,
+        axes: {
+          x: {
+            0: {side: 'top'}
+          }
+        }
+      };
+      
+      var data2 = new google.visualization.DataTable();
+      data2.addColumn('number', 'Threads');
+      data2.addColumn('number', 'SynchronizedSet-noTx');
+      data2.addColumn('number', 'NoOpSet-noTx');
+      data2.addColumn('number', 'ConcurrentSkipList-noTx');
+      data2.addColumn('number', 'SynchronizedSet-withTx');
+      data2.addColumn('number', 'NoOpSet-withTx');
+      data2.addColumn('number', 'ConcurrentSkipList-withTx');
+
+      data2.addRows([
+        [1,  16241919.6, 32930979.6, 2871044.2, 16553792.5, 26172808.5, 2842754.1],
+        [2,  6868742.6, 68130372.9, 6273723.2, 6597659.6, 50567013.4, 5585528.9],
+        [3,  7519536.0, 103926782.2, 8976888.4, 6513156.4, 74624998.5, 8110790.3],
+        [4,  9110605.5, 125912879.6, 11449983.4, 8800442.8, 91740368.9, 9639530.7],
+        [5,  9014988.6, 158011864.9, 13680673.7, 9045388.9, 103860969.5, 11492947.0],
+        [6,  8855962.4, 151126132.0, 15031365.4, 8489702.0, 114845480.5, 12944830.7]
+      ]);
+
+
+
+      var chart1 = new google.charts.Line(document.getElementById('without-noop'));
+      var chart2 = new google.charts.Line(document.getElementById('all'));
+
+      chart1.draw(data1, options1);
+      chart2.draw(data2, options2);
+    }
+    
+  </script>
+  </body>
+</html>
