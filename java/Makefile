@@ -81,7 +81,7 @@ notx:
 	${JAVA} ${JAVAOPT} \
 	-cp bin \
 	contention.benchmark.Test \
-	-v -W 2 -u 20 -a 0 -s 0 -l 2000 -t ${N_THREADS} -i 4096 -r 8192 -b ${BENCH_CLASS}
+	-v -W 2 -u 30 -a 0 -s 10 -d 2000 -t ${N_THREADS} -i 4096 -r 8192 -b ${BENCH_CLASS}
 
 
 withtx:
@@ -91,7 +91,7 @@ withtx:
 	-cp ${BENCH}:${MYDEUCE}:bin \
 	-Xbootclasspath/p:${RT} \
 	contention.benchmark.Test \
-	-v -W 2 -u 20 -a 0 -s 0 -d 2000 -t ${N_THREADS} -i 4096 -r 8192 -b ${BENCH_CLASS}
+	-v -W 2 -u 20 -a 0 -s 30 -d 2000 -t ${N_THREADS} -i 4096 -r 8192 -b ${BENCH_CLASS}
 
 
 
@@ -104,41 +104,31 @@ check:
 	contention.benchmark.Test \
 	-v -W 2 -u 20 -a 0 -s 0 -d 2000 -t 64 -i 4096 -r 8192 -b arrays.transactional.Vector
 
-check-noop:
-	${JAVA} ${JAVAOPT} -Dorg.deuce.exclude="java.util.*,java.lang.*,sun.*" \
-	-javaagent:${AGENT} \
-	-Dorg.deuce.transaction.contextClass=org.deuce.transaction.${SYNC} \
-	-cp ${BENCH}:${MYDEUCE}:bin \
-	-Xbootclasspath/p:${RT} \
-	contention.benchmark.Test \
-	-v -W 2 -u 20 -a 0 -s 0 -d 2000 -t 5 -i 4096 -r 8192 -b tmjee.NoOpSet
 
-check-csls:
-	${JAVA} ${JAVAOPT} -ea -Dorg.deuce.exclude="java.util.*,java.lang.*,sun.*" \
-	-javaagent:${AGENT} \
-	-Dorg.deuce.transaction.contextClass=org.deuce.transaction.${SYNC} \
-	-cp ${BENCH}:${MYDEUCE}:bin \
-	-Xbootclasspath/p:${RT} \
-	contention.benchmark.Test \
-	-v -W 2 -u 20 -a 0 -s 0 -d 2000 -t 5 -i 4096 -r 8192 -b tmjee.ConcurrentSkipListSet
-
-check-notx-csls:
+tmjee-sync:
 	${JAVA} ${JAVAOPT} \
 	-cp bin \
 	contention.benchmark.Test \
-	-v -W 2 -u 20 -a 0 -s 0 -l 2000 -t 5 -i 4096 -r 8192 -b tmjee.ConcurrentSkipListSet
+	-v -W 2 -u 20 -a 0 -s 20 -d 2000 -t ${N_THREADS} -i 4096 -r 8192 -b tmjee.SynchronizedSet
 
-check-notx-noop:
+tmjee-csls:
 	${JAVA} ${JAVAOPT} \
 	-cp bin \
 	contention.benchmark.Test \
-	-v -W 2 -u 20 -a 0 -s 0 -l 2000 -t ${N_THREADS} -i 4096 -r 8192 -b tmjee.NoOpSet
+	-v -W 2 -u 20 -a 0 -s 20 -d 2000 -t ${N_THREADS} -i 4096 -r 8192 -b tmjee.ConcurrentSkipListSet
+
+tmjee-noop:
+	${JAVA} ${JAVAOPT} \
+	-cp bin \
+	contention.benchmark.Test \
+	-v -W 2 -u 20 -a 0 -s 20 -d 2000 -t ${N_THREADS} -i 4096 -r 8192 -b tmjee.NoOpSet
+
 
 check-notx:
 	${JAVA} ${JAVAOPT} \
 	-cp bin \
 	contention.benchmark.Test \
-	-W 2 -w 20 -a 0 -s 0 -l 2000 -t 1 -i 4096 -r 8192 -b contention.datastructures.locks.LockedLinkedListIntSet
+	-W 2 -w 20 -a 0 -s 0 -d 2000 -t 1 -i 4096 -r 8192 -b contention.datastructures.locks.LockedLinkedListIntSet
 
 clean:
 	rm -rf bin/*

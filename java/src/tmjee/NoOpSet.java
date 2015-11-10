@@ -4,66 +4,99 @@ import contention.abstractions.CompositionalIntSet;
 import org.deuce.Atomic;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class NoOpSet implements CompositionalIntSet {
 
 
+    private Set<Integer> set = new HashSet<Integer>();
+
     @Override
-    @Atomic(metainf = "elastic")
     public void fill(int range, long size) {
+        while(set.size() < size) {
+            try {
+                set.add(ThreadLocalRandom.current().nextInt(range));
+            }catch(Throwable t) {
+            }
+        }
     }
 
     @Override
-    @Atomic(metainf = "elastic")
     public boolean addInt(int x) {
-        return true;
+        try {
+            return set.add(x);
+        }catch(Throwable t) {
+            return true;
+        }
     }
 
     @Override
-    @Atomic(metainf = "elastic")
     public boolean removeInt(int x) {
-        return true;
+        try {
+            return set.remove(x);
+        }catch(Throwable t) {
+            return true;
+        }
     }
 
     @Override
-    @Atomic(metainf = "elastic")
     public boolean containsInt(int x) {
-        return true;
+        try {
+            return set.contains(x);
+        }catch(Throwable t) {
+            return true;
+        }
     }
 
     @Override
-    @Atomic(metainf = "elastic")
     public Object getInt(int x) {
-        return null;
+        try {
+            return set.contains(x) ? x : null;
+        }catch(Throwable t) {
+            return null;
+        }
     }
 
     @Override
-    @Atomic(metainf = "elastic")
     public boolean addAll(Collection<Integer> c) {
-        return true;
+        try {
+            return set.addAll(c);
+        }catch(Throwable t) {
+            return true;
+        }
     }
 
     @Override
-    @Atomic(metainf = "elastic")
     public boolean removeAll(Collection<Integer> c) {
-        return true;
+        try {
+            return set.removeAll(c);
+        }catch(Throwable t) {
+            return true;
+        }
     }
 
     @Override
-    @Atomic(metainf = "elastic")
     public int size() {
-        return 0;
+        try {
+            return set.size();
+        }catch(Throwable t) {
+            return 0;
+        }
     }
 
     @Override
-    @Atomic(metainf = "elastic")
     public void clear() {
-
+        try {
+            set.clear();
+        }catch(Throwable t) {
+            return;
+        }
     }
 
     @Override
-    @Atomic(metainf = "elastic")
     public Object putIfAbsent(int x, int y) {
-        return null;
+        throw new UnsupportedOperationException("not supported");
     }
 }

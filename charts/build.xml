@@ -1,0 +1,32 @@
+<project name="Chart" default="chart" basedir=".">
+
+    <path id="classpath">
+        <fileset dir="${basedir}/lib">
+            <include name="**/*.jar" />
+        </fileset>
+        <pathelement location="${basedir}/temp" />
+    </path>
+
+    <target name="chart">
+        <mkdir dir="${basedir}/temp"/>
+        <javac classpathref="classpath"
+               debug="on"
+            srcdir="${basedir}/src"
+            destdir="${basedir}/temp">
+        </javac>
+        <copy todir="${basedir}/temp">
+            <fileset dir="${basedir}/src">
+                <include name="**/*.ftl"/>
+            </fileset>
+        </copy>
+        <java classpathref="classpath" classname="chart.Main">
+            <arg value="${basedir}/../java/result/extracted-results.txt" />
+            <arg value="${basedir}/../java/result/chart.html"/>
+        </java>
+    </target>
+
+    <target name="clean">
+        <delete dir="${basedir}/temp"/>
+    </target>
+
+</project>

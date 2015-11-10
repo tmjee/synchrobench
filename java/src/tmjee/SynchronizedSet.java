@@ -15,10 +15,8 @@ public class SynchronizedSet implements CompositionalIntSet {
 
     @Override
     public void fill(int range, long size) {
-        int count =0;
-        while(set.size() < size && (count/2)<size) {
+        while(set.size() < size) {
             set.add(ThreadLocalRandom.current().nextInt(range));
-            count++;
         }
     }
 
