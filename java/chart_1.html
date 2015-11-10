@@ -1,0 +1,92 @@
+<html>
+<head>
+    <script type="text/javascript"
+            src="https://www.google.com/jsapi?autoload={
+            'modules':[{
+              'name':'visualization',
+              'version':'1',
+              'packages':['corechart', 'line']
+            }]
+          }"></script>
+
+    <script type="text/javascript">
+        google.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Thread', 'Sync', 'Conc', "Noop"],
+                                    ['01', 16813108.6, 184021.5957, 18438337.2],
+                    ['02', 7618351.5297, 310219.6243, 32620062.7749],
+                    ['04', 7801577.507, 660204.995, 49750864.2543],
+                    ['08', 8491301.6983, 1059485.7541, 70914881.0757],
+                    ['16', 8197596.1654, 1063824.1517, 73431973.4357],
+                    ['32', 8036888.4018, 1059007.0665, 78209527.439]
+            ]);
+
+            var options = {
+                title: 'Performance',
+                legend: { position: 'bottom' }
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+            chart.draw(data, options);
+        }
+    </script>
+
+    <pre>
+	${JAVA} ${JAVAOPT} \
+	-cp bin \
+	contention.benchmark.Test \
+	-v -W 2 -u 30 -a 0 -s 10 -d 2000 -t ${N_THREADS} -i 4096 -r 8192 -b ${BENCH_CLASS}
+    </pre>
+
+    <table border="1">
+        <tr>
+            <td>Thread</td>
+            <td>Sync</td>
+            <td>Conc</td>
+            <td>Noop</td>
+        </tr>
+            <tr>
+                <td>01</td>
+                <td>16813108.6</td>
+                <td>184021.5957</td>
+                <td>18438337.2</td>
+            </tr>
+            <tr>
+                <td>02</td>
+                <td>7618351.5297</td>
+                <td>310219.6243</td>
+                <td>32620062.7749</td>
+            </tr>
+            <tr>
+                <td>04</td>
+                <td>7801577.507</td>
+                <td>660204.995</td>
+                <td>49750864.2543</td>
+            </tr>
+            <tr>
+                <td>08</td>
+                <td>8491301.6983</td>
+                <td>1059485.7541</td>
+                <td>70914881.0757</td>
+            </tr>
+            <tr>
+                <td>16</td>
+                <td>8197596.1654</td>
+                <td>1063824.1517</td>
+                <td>73431973.4357</td>
+            </tr>
+            <tr>
+                <td>32</td>
+                <td>8036888.4018</td>
+                <td>1059007.0665</td>
+                <td>78209527.439</td>
+            </tr>
+    </table>
+</head>
+<body>
+<div id="curve_chart" style="width: 900px; height: 500px"></div>
+</body>
+</html>
