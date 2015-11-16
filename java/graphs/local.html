@@ -15,15 +15,15 @@
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
                 ['Thread', 'Sync', 'Conc', "Noop"],
-                                    ['001', 3070356.8216, 185853.0735, 2655237.8811],
-                    ['002', 2305081.9181, 352910.1348, 1928906.5467],
-                    ['004', 1969027.9163, 693535.4291, 2183637.0444],
-                    ['008', 1901025.4491, 1052312.8103, 2167899.2519],
-                    ['016', 1958923.4592, 1046839.1575, 2092752.988],
-                    ['032', 2068414.0664, 1053754.0438, 2122296.3879],
-                    ['064', 2018432.1951, 1064676.9106, 2135877.0895],
-                    ['128', 1947928.5714, 1066690.4264, 2096958.9844],
-                    ['256', 1875971.6797, 1031979.2544, 2065098.0873]
+                                    ['001', 2458799.1004, 142069, 3442589],
+                    ['002', 1691017.973, 349638.1809, 2234293.7063],
+                    ['004', 2056041.9371, 655316.3673, 2299902.1956],
+                    ['008', 2011548.9022, 1048670.9613, 2159502.495],
+                    ['016', 2190574.638, 1053781.9048, 2208388.335],
+                    ['032', 2045611.0283, 1009998.6714, 2245901.6798],
+                    ['064', 2026998.5141, 1067229.0292, 2169731.8876],
+                    ['128', 2071221.4182, 1055142.7239, 2262330.0493],
+                    ['256', 2028101.8022, 1062589.0937, 2147863.1476]
             ]);
 
             var options = {
@@ -37,7 +37,7 @@
         }
     </script>
     <pre>
-        nullNumber of threads:       	1Benchmark:               	tmjee.ConcurrentSkipListSetThroughput (ops/s):       	185853.07346326837Operations:               	371892	( 100 %)Number of threads:       	2Benchmark:               	tmjee.ConcurrentSkipListSetThroughput (ops/s):       	352910.1347978033Operations:               	706879	( 100 %)Number of threads:       	4Benchmark:               	tmjee.ConcurrentSkipListSetThroughput (ops/s):       	693535.4291417166Operations:               	1389845	( 100 %)Number of threads:       	8Benchmark:               	tmjee.ConcurrentSkipListSetThroughput (ops/s):       	1052312.8103277062Operations:               	2119358	( 100 %)Number of threads:       	16Benchmark:               	tmjee.ConcurrentSkipListSetThroughput (ops/s):       	1046839.1574916228Operations:               	2186847	( 100 %)Number of threads:       	32Benchmark:               	tmjee.ConcurrentSkipListSetThroughput (ops/s):       	1053754.0437678401Operations:               	2214991	( 100 %)Number of threads:       	64Benchmark:               	tmjee.ConcurrentSkipListSetThroughput (ops/s):       	1064676.9106348564Operations:               	2632946	( 100 %)Number of threads:       	128Benchmark:               	tmjee.ConcurrentSkipListSetThroughput (ops/s):       	1066690.4264214048Operations:               	5103047	( 100 %)Number of threads:       	256Benchmark:               	tmjee.ConcurrentSkipListSetThroughput (ops/s):       	1031979.254359591Operations:               	6864726	( 100 %)Number of threads:       	1Benchmark:               	tmjee.NoOpSetThroughput (ops/s):       	2655237.8810594706Operations:               	5313131	( 100 %)Number of threads:       	2Benchmark:               	tmjee.NoOpSetThroughput (ops/s):       	1928906.5467266368Operations:               	3859742	( 100 %)Number of threads:       	4Benchmark:               	tmjee.NoOpSetThroughput (ops/s):       	2183637.0444333497Operations:               	4373825	( 100 %)Number of threads:       	8Benchmark:               	tmjee.NoOpSetThroughput (ops/s):       	2167899.2518703244Operations:               	4346638	( 100 %)Number of threads:       	16Benchmark:               	tmjee.NoOpSetThroughput (ops/s):       	2092752.9880478086Operations:               	4202248	( 100 %)Number of threads:       	32Benchmark:               	tmjee.NoOpSetThroughput (ops/s):       	2122296.387926769Operations:               	4289161	( 100 %)Number of threads:       	64Benchmark:               	tmjee.NoOpSetThroughput (ops/s):       	2135877.0894788597Operations:               	4344374	( 100 %)Number of threads:       	128Benchmark:               	tmjee.NoOpSetThroughput (ops/s):       	2096958.984375Operations:               	4294572	( 100 %)Number of threads:       	256Benchmark:               	tmjee.NoOpSetThroughput (ops/s):       	2065098.0872976948Operations:               	4210735	( 100 %)Number of threads:       	1Benchmark:               	tmjee.SynchronizedSetThroughput (ops/s):       	3070356.8215892054Operations:               	6143784	( 100 %)Number of threads:       	2Benchmark:               	tmjee.SynchronizedSetThroughput (ops/s):       	2305081.9180819183Operations:               	4614774	( 100 %)Number of threads:       	4Benchmark:               	tmjee.SynchronizedSetThroughput (ops/s):       	1969027.9162512466Operations:               	3949870	( 100 %)Number of threads:       	8Benchmark:               	tmjee.SynchronizedSetThroughput (ops/s):       	1901025.4491017964Operations:               	3809655	( 100 %)Number of threads:       	16Benchmark:               	tmjee.SynchronizedSetThroughput (ops/s):       	1958923.4592445327Operations:               	3941354	( 100 %)Number of threads:       	32Benchmark:               	tmjee.SynchronizedSetThroughput (ops/s):       	2068414.0663694898Operations:               	4176128	( 100 %)Number of threads:       	64Benchmark:               	tmjee.SynchronizedSetThroughput (ops/s):       	2018432.1951219514Operations:               	4137786	( 100 %)Number of threads:       	128Benchmark:               	tmjee.SynchronizedSetThroughput (ops/s):       	1947928.5714285716Operations:               	4008837	( 100 %)Number of threads:       	256Benchmark:               	tmjee.SynchronizedSetThroughput (ops/s):       	1875971.6796875Operations:               	3841990	( 100 %)
+        nullNumber of threads:       	1Benchmark:               	tmjee.ConcurrentSkipListSetThroughput (ops/s):       	142069.0Operations:               	284138	( 100 %)Number of threads:       	2Benchmark:               	tmjee.ConcurrentSkipListSetThroughput (ops/s):       	349638.1809095452Operations:               	699626	( 100 %)Number of threads:       	4Benchmark:               	tmjee.ConcurrentSkipListSetThroughput (ops/s):       	655316.367265469Operations:               	1313254	( 100 %)Number of threads:       	8Benchmark:               	tmjee.ConcurrentSkipListSetThroughput (ops/s):       	1048670.9613478694Operations:               	2116218	( 100 %)Number of threads:       	16Benchmark:               	tmjee.ConcurrentSkipListSetThroughput (ops/s):       	1053781.9047619046Operations:               	2212942	( 100 %)Number of threads:       	32Benchmark:               	tmjee.ConcurrentSkipListSetThroughput (ops/s):       	1009998.6713906112Operations:               	2280577	( 100 %)Number of threads:       	64Benchmark:               	tmjee.ConcurrentSkipListSetThroughput (ops/s):       	1067229.029217719Operations:               	3396990	( 100 %)Number of threads:       	128Benchmark:               	tmjee.ConcurrentSkipListSetThroughput (ops/s):       	1055142.723880597Operations:               	4524452	( 100 %)Number of threads:       	256Benchmark:               	tmjee.ConcurrentSkipListSetThroughput (ops/s):       	1062589.093653689Operations:               	16894104	( 100 %)Number of threads:       	1Benchmark:               	tmjee.NoOpSetThroughput (ops/s):       	3442589.0Operations:               	6885178	( 100 %)Number of threads:       	2Benchmark:               	tmjee.NoOpSetThroughput (ops/s):       	2234293.7062937063Operations:               	4473056	( 100 %)Number of threads:       	4Benchmark:               	tmjee.NoOpSetThroughput (ops/s):       	2299902.1956087826Operations:               	4609004	( 100 %)Number of threads:       	8Benchmark:               	tmjee.NoOpSetThroughput (ops/s):       	2159502.49500998Operations:               	4327643	( 100 %)Number of threads:       	16Benchmark:               	tmjee.NoOpSetThroughput (ops/s):       	2208388.334995015Operations:               	4430027	( 100 %)Number of threads:       	32Benchmark:               	tmjee.NoOpSetThroughput (ops/s):       	2245901.679841897Operations:               	4545705	( 100 %)Number of threads:       	64Benchmark:               	tmjee.NoOpSetThroughput (ops/s):       	2169731.8876293744Operations:               	4402386	( 100 %)Number of threads:       	128Benchmark:               	tmjee.NoOpSetThroughput (ops/s):       	2262330.049261084Operations:               	4592530	( 100 %)Number of threads:       	256Benchmark:               	tmjee.NoOpSetThroughput (ops/s):       	2147863.1476050834Operations:               	4394528	( 100 %)Number of threads:       	1Benchmark:               	tmjee.SynchronizedSetThroughput (ops/s):       	2458799.1004497753Operations:               	4920057	( 100 %)Number of threads:       	2Benchmark:               	tmjee.SynchronizedSetThroughput (ops/s):       	1691017.9730404392Operations:               	3387109	( 100 %)Number of threads:       	4Benchmark:               	tmjee.SynchronizedSetThroughput (ops/s):       	2056041.9370943583Operations:               	4118252	( 100 %)Number of threads:       	8Benchmark:               	tmjee.SynchronizedSetThroughput (ops/s):       	2011548.9021956087Operations:               	4031144	( 100 %)Number of threads:       	16Benchmark:               	tmjee.SynchronizedSetThroughput (ops/s):       	2190574.6380429356Operations:               	4387721	( 100 %)Number of threads:       	32Benchmark:               	tmjee.SynchronizedSetThroughput (ops/s):       	2045611.0283159465Operations:               	4117815	( 100 %)Number of threads:       	64Benchmark:               	tmjee.SynchronizedSetThroughput (ops/s):       	2026998.5141158989Operations:               	4092510	( 100 %)Number of threads:       	128Benchmark:               	tmjee.SynchronizedSetThroughput (ops/s):       	2071221.4182344428Operations:               	4293642	( 100 %)Number of threads:       	256Benchmark:               	tmjee.SynchronizedSetThroughput (ops/s):       	2028101.8022406236Operations:               	4163693	( 100 %)
     </pre>
 
     <table border="1">
@@ -49,57 +49,57 @@
         </tr>
             <tr>
                 <td>001</td>
-                <td>3070356.8216</td>
-                <td>185853.0735</td>
-                <td>2655237.8811</td>
+                <td>2458799.1004</td>
+                <td>142069</td>
+                <td>3442589</td>
             </tr>
             <tr>
                 <td>002</td>
-                <td>2305081.9181</td>
-                <td>352910.1348</td>
-                <td>1928906.5467</td>
+                <td>1691017.973</td>
+                <td>349638.1809</td>
+                <td>2234293.7063</td>
             </tr>
             <tr>
                 <td>004</td>
-                <td>1969027.9163</td>
-                <td>693535.4291</td>
-                <td>2183637.0444</td>
+                <td>2056041.9371</td>
+                <td>655316.3673</td>
+                <td>2299902.1956</td>
             </tr>
             <tr>
                 <td>008</td>
-                <td>1901025.4491</td>
-                <td>1052312.8103</td>
-                <td>2167899.2519</td>
+                <td>2011548.9022</td>
+                <td>1048670.9613</td>
+                <td>2159502.495</td>
             </tr>
             <tr>
                 <td>016</td>
-                <td>1958923.4592</td>
-                <td>1046839.1575</td>
-                <td>2092752.988</td>
+                <td>2190574.638</td>
+                <td>1053781.9048</td>
+                <td>2208388.335</td>
             </tr>
             <tr>
                 <td>032</td>
-                <td>2068414.0664</td>
-                <td>1053754.0438</td>
-                <td>2122296.3879</td>
+                <td>2045611.0283</td>
+                <td>1009998.6714</td>
+                <td>2245901.6798</td>
             </tr>
             <tr>
                 <td>064</td>
-                <td>2018432.1951</td>
-                <td>1064676.9106</td>
-                <td>2135877.0895</td>
+                <td>2026998.5141</td>
+                <td>1067229.0292</td>
+                <td>2169731.8876</td>
             </tr>
             <tr>
                 <td>128</td>
-                <td>1947928.5714</td>
-                <td>1066690.4264</td>
-                <td>2096958.9844</td>
+                <td>2071221.4182</td>
+                <td>1055142.7239</td>
+                <td>2262330.0493</td>
             </tr>
             <tr>
                 <td>256</td>
-                <td>1875971.6797</td>
-                <td>1031979.2544</td>
-                <td>2065098.0873</td>
+                <td>2028101.8022</td>
+                <td>1062589.0937</td>
+                <td>2147863.1476</td>
             </tr>
     </table>
 </head>
