@@ -60,7 +60,8 @@ BENCH   =  ${JAR_DIR}/compositional-deucestm-${VERSION}.jar
 RT      =  ${JAR_DIR}/rt_instrumented.jar
 MYDEUCE	=  ${JAR_DIR}/${JAR_STM}
 
-all: compile instrument
+#all: compile instrument
+all : compile
 
 instrument:
 	${JAVA} -cp ${AGENT} ${EXCLUDE} ${MAIN} ${JDK_RT} ${RT}
@@ -68,7 +69,7 @@ instrument:
 compile:
 	${ANT} 
 	${ANT} jarbench
-	${ANT} jardeuce 
+#	${ANT} jardeuce
 
 compilev:
 	${ANT} -v
@@ -83,6 +84,12 @@ notx:
 	contention.benchmark.Test \
 	-v -W 2 -u 30 -a 0 -s 10 -d 2000 -t ${N_THREADS} -i 4096 -r 8192 -b ${BENCH_CLASS}
 
+
+test:
+	${JAVA} ${JAVAOPT} \
+	-cp bin \
+	contention.benchmark.Test \
+	-v -W 2 -u 30 -a 0 -s 10 -d 2000 -t 2 -i 4096 -r 8192 -b tmjee.NoOpSet
 
 withtx:
 	${JAVA} ${JAVAOPT} -Dorg.deuce.exclude="java.util.*,java.lang.*,sun.*" \

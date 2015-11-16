@@ -1,9 +1,7 @@
 package tmjee;
 
 import contention.abstractions.CompositionalIntSet;
-import org.deuce.Atomic;
 
-import javax.naming.OperationNotSupportedException;
 import java.util.Collection;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;

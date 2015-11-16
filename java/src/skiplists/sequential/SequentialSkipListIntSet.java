@@ -172,7 +172,7 @@ public class SequentialSkipListIntSet implements CompositionalIntSet {
 	for (i=0; i<= maxLevel; i++) arr[i] = 0;
 	
 	do {
-	    str += curr.toString();
+	    str += curr.toString()+"\n";
 	    arr[curr.getLevel()]++;
 	    curr = curr.getNext(0);
 	} while (curr != null); 

@@ -156,6 +156,13 @@ public class Test {
 			for (short threadNum = 0; threadNum < Parameters.numThreads; threadNum++) {
 				threadLoopsSet[threadNum] = new ThreadSetLoop(threadNum, setBench, methods);
 				threads[threadNum] = new Thread(threadLoopsSet[threadNum]);
+				threads[threadNum].setUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+					@Override
+					public void uncaughtException(Thread t, Throwable e) {
+						System.out.println(format("Thread %s throws %s", t, e));
+						e.printStackTrace();
+					}
+				});
 			}
 			break;
 		case MAP:
@@ -164,6 +171,13 @@ public class Test {
 			for (short threadNum = 0; threadNum < Parameters.numThreads; threadNum++) {
 				threadLoops[threadNum] = new ThreadLoop(threadNum, mapBench, methods);
 				threads[threadNum] = new Thread(threadLoops[threadNum]);
+				threads[threadNum].setUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+					@Override
+					public void uncaughtException(Thread t, Throwable e) {
+						System.out.println(format("Thread %s throws %s", t, e));
+						e.printStackTrace();
+					}
+				});
 			}
 			break;
 		case SORTEDSET:
@@ -172,6 +186,13 @@ public class Test {
 			for (short threadNum = 0; threadNum < Parameters.numThreads; threadNum++) {
 				threadLoopsSSet[threadNum] = new ThreadSortedSetLoop(threadNum, sortedBench, methods);
 				threads[threadNum] = new Thread(threadLoopsSSet[threadNum]);
+				threads[threadNum].setUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+					@Override
+					public void uncaughtException(Thread t, Throwable e) {
+						System.out.println(format("Thread %s throws %s", t, e));
+						e.printStackTrace();
+					}
+				});
 			}
 			break;
 		}
@@ -227,8 +248,13 @@ public class Test {
 			}
 		}
 		System.out.println("waiting for join");
-		for (Thread thread : threads)
-			thread.join();
+		for (Thread thread : threads) {
+			try {
+				thread.join();
+			}catch(InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 
 		long endTime = System.currentTimeMillis();
 		elapsedTime = ((double) (endTime - startTime)) / 1000.0;
@@ -261,6 +287,7 @@ public class Test {
 				System.err.println("Cannot launch operations.");
 				e.printStackTrace();
 			}
+			System.out.println("warm up");
 			test.execute(Parameters.warmUp * 1000, true);
 			// give time to the JIT
 			Thread.sleep(1000);
@@ -285,6 +312,7 @@ public class Test {
 				System.err.println("Cannot launch operations.");
 				e.printStackTrace();
 			}
+			System.out.println("run bench");
 			test.execute(Parameters.numMilliseconds, false);
 
 			if (test.setBench instanceof MaintenanceAlg) {

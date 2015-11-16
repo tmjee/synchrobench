@@ -30,6 +30,9 @@
             chart.draw(data, options);
         }
     </script>
+    <pre>
+        ${cmd}
+    </pre>
 
     <table border="1">
         <tr>

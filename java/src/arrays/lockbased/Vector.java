@@ -37,7 +37,6 @@ import java.util.ListIterator;
 import java.util.NoSuchElementException;
 import java.util.RandomAccess;
 import java.util.SortedSet;
-import java.util.Spliterator;
 
 import contention.abstractions.CompositionalSortedSet;
 
@@ -221,12 +220,12 @@ public class Vector<E>
         }
     }
 
-
+/*
     @Override
 	public Spliterator<E> spliterator() {
 	return List.super.spliterator();
     }
-
+*/
   
 
     /**

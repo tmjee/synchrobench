@@ -35,7 +35,7 @@
  	</target>
 
 	<target name="compileJava7" depends="version" if="isJava6OrJava7">
-	        <javac srcdir="${src}" destdir="${bin}" classpath="${deuce}:lib/junit.jar">
+	        <javac debug="true" srcdir="${src}" destdir="${bin}" classpath="${deuce}:lib/junit.jar">
 			<exclude name="linkedlists/lockfree/NodeLinked.java" />
 			<exclude name="linkedlists/lockfree/NonBlockingLinkedListSetRTTI.java" />
 			<exclude name="linkedlists/lockfree/NodeMarked.java" />

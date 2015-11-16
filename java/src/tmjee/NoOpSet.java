@@ -2,25 +2,29 @@ package tmjee;
 
 import contention.abstractions.CompositionalIntSet;
 import org.deuce.Atomic;
+import skiplists.sequential.SequentialSkipListIntSet;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class NoOpSet implements CompositionalIntSet {
 
 
-    private Set<Integer> set = new HashSet<Integer>();
+    private Set<Integer> set = Collections.synchronizedSet(SkiplistSet.create(new Comparator<Integer>() {
+        @Override
+        public int compare(Integer o1, Integer o2) {
+            return o1 - o2;
+        }
+    }));
 
     @Override
     public void fill(int range, long size) {
-        while(set.size() < size) {
             try {
-                set.add(ThreadLocalRandom.current().nextInt(range));
+                while(set.size() < size) {
+                    set.add(ThreadLocalRandom.current().nextInt(range));
+                }
             }catch(Throwable t) {
             }
-        }
     }
 
     @Override
@@ -53,7 +57,7 @@ public class NoOpSet implements CompositionalIntSet {
     @Override
     public Object getInt(int x) {
         try {
-            return set.contains(x) ? x : null;
+        return set.contains(x) ? x : null;
         }catch(Throwable t) {
             return null;
         }
