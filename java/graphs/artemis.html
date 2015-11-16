@@ -1,0 +1,109 @@
+<html>
+<head>
+    <script type="text/javascript"
+            src="https://www.google.com/jsapi?autoload={
+            'modules':[{
+              'name':'visualization',
+              'version':'1',
+              'packages':['corechart', 'line']
+            }]
+          }"></script>
+
+    <script type="text/javascript">
+        google.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Thread', 'Sync', 'Conc', "Noop"],
+                                    ['001', 1096740.3894, 200037.4625, 1203356.1439],
+                    ['002', 976837.7434, 288868.4604, 1074032.4675],
+                    ['004', 677013.4462, 605435.9741, 587151.6966],
+                    ['008', 530383.2335, 1093543.8684, 593090.2293],
+                    ['016', 507629.2804, 1809827.7916, 546637.674],
+                    ['032', 464583.7463, 3275342.196, 511944.9678],
+                    ['064', 496086.8499, 6758551.6588, 499362.1197],
+                    ['128', 438893.012, 6530973.8858, 466072.3589],
+                    ['256', 424713.2181, 7799066.4676, 456660.5976]
+            ]);
+
+            var options = {
+                title: 'Performance',
+                legend: { position: 'bottom' }
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+            chart.draw(data, options);
+        }
+    </script>
+    <pre>
+        nullNumber of threads:       	1Benchmark:               	tmjee.ConcurrentSkipListSetThroughput (ops/s):       	200037.46253746256Operations:               	400475	( 100 %)Number of threads:       	2Benchmark:               	tmjee.ConcurrentSkipListSetThroughput (ops/s):       	288868.46038863977Operations:               	579759	( 100 %)Number of threads:       	4Benchmark:               	tmjee.ConcurrentSkipListSetThroughput (ops/s):       	605435.9740906826Operations:               	1215110	( 100 %)Number of threads:       	8Benchmark:               	tmjee.ConcurrentSkipListSetThroughput (ops/s):       	1093543.8683948156Operations:               	2193649	( 100 %)Number of threads:       	16Benchmark:               	tmjee.ConcurrentSkipListSetThroughput (ops/s):       	1809827.7915632753Operations:               	3646803	( 100 %)Number of threads:       	32Benchmark:               	tmjee.ConcurrentSkipListSetThroughput (ops/s):       	3275342.19596258Operations:               	6652220	( 100 %)Number of threads:       	64Benchmark:               	tmjee.ConcurrentSkipListSetThroughput (ops/s):       	6758551.658767773Operations:               	14260544	( 100 %)Number of threads:       	128Benchmark:               	tmjee.ConcurrentSkipListSetThroughput (ops/s):       	6530973.885793872Operations:               	18756957	( 100 %)Number of threads:       	256Benchmark:               	tmjee.ConcurrentSkipListSetThroughput (ops/s):       	7799066.467630421Operations:               	49633259	( 100 %)Number of threads:       	1Benchmark:               	tmjee.NoOpSetThroughput (ops/s):       	1203356.143856144Operations:               	2409119	( 100 %)Number of threads:       	2Benchmark:               	tmjee.NoOpSetThroughput (ops/s):       	1074032.4675324676Operations:               	2150213	( 100 %)Number of threads:       	4Benchmark:               	tmjee.NoOpSetThroughput (ops/s):       	587151.6966067865Operations:               	1176652	( 100 %)Number of threads:       	8Benchmark:               	tmjee.NoOpSetThroughput (ops/s):       	593090.2293120639Operations:               	1189739	( 100 %)Number of threads:       	16Benchmark:               	tmjee.NoOpSetThroughput (ops/s):       	546637.6739562624Operations:               	1099835	( 100 %)Number of threads:       	32Benchmark:               	tmjee.NoOpSetThroughput (ops/s):       	511944.9677739217Operations:               	1032593	( 100 %)Number of threads:       	64Benchmark:               	tmjee.NoOpSetThroughput (ops/s):       	499362.11972522084Operations:               	1017700	( 100 %)Number of threads:       	128Benchmark:               	tmjee.NoOpSetThroughput (ops/s):       	466072.35890014475Operations:               	966168	( 100 %)Number of threads:       	256Benchmark:               	tmjee.NoOpSetThroughput (ops/s):       	456660.5975723623Operations:               	978167	( 100 %)Number of threads:       	1Benchmark:               	tmjee.SynchronizedSetThroughput (ops/s):       	1096740.389415876Operations:               	2196771	( 100 %)Number of threads:       	2Benchmark:               	tmjee.SynchronizedSetThroughput (ops/s):       	976837.7433849225Operations:               	1956606	( 100 %)Number of threads:       	4Benchmark:               	tmjee.SynchronizedSetThroughput (ops/s):       	677013.4462151395Operations:               	1359443	( 100 %)Number of threads:       	8Benchmark:               	tmjee.SynchronizedSetThroughput (ops/s):       	530383.2335329341Operations:               	1062888	( 100 %)Number of threads:       	16Benchmark:               	tmjee.SynchronizedSetThroughput (ops/s):       	507629.2803970223Operations:               	1022873	( 100 %)Number of threads:       	32Benchmark:               	tmjee.SynchronizedSetThroughput (ops/s):       	464583.746283449Operations:               	937530	( 100 %)Number of threads:       	64Benchmark:               	tmjee.SynchronizedSetThroughput (ops/s):       	496086.8498527969Operations:               	1011025	( 100 %)Number of threads:       	128Benchmark:               	tmjee.SynchronizedSetThroughput (ops/s):       	438893.01204819273Operations:               	910703	( 100 %)Number of threads:       	256Benchmark:               	tmjee.SynchronizedSetThroughput (ops/s):       	424713.2181223727Operations:               	909311	( 100 %)
+    </pre>
+
+    <table border="1">
+        <tr>
+            <td>Thread</td>
+            <td>Sync</td>
+            <td>Conc</td>
+            <td>Noop</td>
+        </tr>
+            <tr>
+                <td>001</td>
+                <td>1096740.3894</td>
+                <td>200037.4625</td>
+                <td>1203356.1439</td>
+            </tr>
+            <tr>
+                <td>002</td>
+                <td>976837.7434</td>
+                <td>288868.4604</td>
+                <td>1074032.4675</td>
+            </tr>
+            <tr>
+                <td>004</td>
+                <td>677013.4462</td>
+                <td>605435.9741</td>
+                <td>587151.6966</td>
+            </tr>
+            <tr>
+                <td>008</td>
+                <td>530383.2335</td>
+                <td>1093543.8684</td>
+                <td>593090.2293</td>
+            </tr>
+            <tr>
+                <td>016</td>
+                <td>507629.2804</td>
+                <td>1809827.7916</td>
+                <td>546637.674</td>
+            </tr>
+            <tr>
+                <td>032</td>
+                <td>464583.7463</td>
+                <td>3275342.196</td>
+                <td>511944.9678</td>
+            </tr>
+            <tr>
+                <td>064</td>
+                <td>496086.8499</td>
+                <td>6758551.6588</td>
+                <td>499362.1197</td>
+            </tr>
+            <tr>
+                <td>128</td>
+                <td>438893.012</td>
+                <td>6530973.8858</td>
+                <td>466072.3589</td>
+            </tr>
+            <tr>
+                <td>256</td>
+                <td>424713.2181</td>
+                <td>7799066.4676</td>
+                <td>456660.5976</td>
+            </tr>
+    </table>
+</head>
+<body>
+<div id="curve_chart" style="width: 900px; height: 500px"></div>
+</body>
+</html>

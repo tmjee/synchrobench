@@ -15,7 +15,6 @@ public class Main {
    public static void main(String[] args) throws Exception {
 
        Map<String, Data> data = new TreeMap<String, Data>();
-       String cmd = null;
 
        File f = new File(args[0]);
        BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream(f))) ;
@@ -24,12 +23,8 @@ public class Main {
            String threads = null;
            String bench = null;
            Double ops  = null;
-           long lines = 1;
            while (l != null) {
                l = l.trim();
-               if (lines <= 4) {
-                  cmd = cmd + l;
-               }
                if (l.startsWith("Number of threads:")) {
                    threads = format("%03d", Integer.parseInt(l.split(":")[1].trim()));
                } else if (l.startsWith("Benchmark:")) {
@@ -69,7 +64,6 @@ public class Main {
 
            Map<String, Object> d = new HashMap<String, Object>();
            d.put("data", data);
-           d.put("cmd", cmd);
            Configuration conf = new Configuration(Configuration.VERSION_2_3_23);
            conf.setClassLoaderForTemplateLoading(Thread.currentThread().getContextClassLoader(), "");
 

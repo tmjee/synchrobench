@@ -31,7 +31,6 @@
         }
     </script>
     <pre>
-        ${cmd}
     </pre>
 
     <table border="1">
