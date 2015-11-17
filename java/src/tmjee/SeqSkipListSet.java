@@ -1,9 +1,3 @@
-/**
- * Original code from http://biscotti.googlecode.com/
- * (https://code.google.com/p/biscotti/source/browse/trunk/src/com/palamida/util/collect/SkiplistSet.java)
- *
- *  Modified to serve as a baseline for multi-thread performance benchmark.
- */
 package tmjee;
 
 import java.util.AbstractSet;
@@ -92,22 +86,22 @@ import java.util.SortedSet;
  *            the type of elements maintained by this list
  * @see Skiplist
  */
-final public class SkiplistSet<E> extends AbstractSet<E> /*implements Serializable, Cloneable*/ {
+public class SeqSkipListSet<E> extends AbstractSet<E> {
 
     private static final long serialVersionUID = 1L;
     private static final double P = .5;
     private static final int MAX_LEVEL = 32;
-    private volatile transient int level = 1;
-    private final transient Random random = new Random();
-    private final transient Node<E> head = new Node<E>(null, MAX_LEVEL);
+    transient int size = 0;
+    private transient int level = 1;
+    private transient Random random = new Random();
+    private transient Node<E> head = new Node<E>(null, MAX_LEVEL);
     private final Comparator<? super E> comparator;
     @SuppressWarnings("unchecked")
-    private final transient Node<E>[] update = new Node[MAX_LEVEL];
-    private final transient int[] index = new int[MAX_LEVEL];
-    volatile transient int modCount = 0;
-    volatile transient int size = 0;
+    private transient Node<E>[] update = new Node[MAX_LEVEL];
+    private transient int[] index = new int[MAX_LEVEL];
+    transient int modCount = 0;
 
-    private SkiplistSet(final Comparator<? super E> comparator) {
+    private SeqSkipListSet(final Comparator<? super E> comparator) {
         this.comparator = comparator;
         for (int i = 0; i < MAX_LEVEL; i++)
             head.next[i] = head;
@@ -124,8 +118,8 @@ final public class SkiplistSet<E> extends AbstractSet<E> /*implements Serializab
      *         order its elements
      *
      */
-    public static <E> SkiplistSet<E> create(final Comparator<? super E> comparator) {
-        return new SkiplistSet<E>(comparator);
+    public static <E> SeqSkipListSet<E> create(final Comparator<? super E> comparator) {
+        return new SeqSkipListSet<E>(comparator);
     }
 
     /**
@@ -154,9 +148,8 @@ final public class SkiplistSet<E> extends AbstractSet<E> /*implements Serializab
             comparator = ((SortedSet<? super E>) elements).comparator();
         else if (elements instanceof PriorityQueue<?>)
             comparator = ((PriorityQueue<? super E>) elements).comparator();
-        else {
-            comparator = (Comparator<? super E>) new NaturalOrderComparator();
-        }
+        else
+            comparator = new NaturalOrderComparator<E>();
         final SkiplistSet<E> set = SkiplistSet.create(comparator);
         set.addAll(elements);
         return set;
@@ -254,8 +247,7 @@ final public class SkiplistSet<E> extends AbstractSet<E> /*implements Serializab
      *
      * @return a shallow copy of this set
      */
-    /*
-    @SuppressWarnings("unchecked")
+    /*@SuppressWarnings("unchecked")
     @Override
     public SkiplistSet<E> clone() throws CloneNotSupportedException {
         SkiplistSet<E> clone;
@@ -321,7 +313,7 @@ final public class SkiplistSet<E> extends AbstractSet<E> /*implements Serializab
         @Override
         public void remove() {
             checkForConcurrentModification();
-            SkiplistSet.this.remove(last.element);
+            SeqSkipListSet.this.remove(last.element);
             expectedModCount = modCount;
             last = null;
         }
@@ -334,8 +326,8 @@ final public class SkiplistSet<E> extends AbstractSet<E> /*implements Serializab
 
     // skip set
 
-    private final static class Node<E> {
-        private final E element;
+    private static class Node<E> {
+        private E element;
         private final Node<E>[] next;
 
         @SuppressWarnings("unchecked")
@@ -379,7 +371,6 @@ final public class SkiplistSet<E> extends AbstractSet<E> /*implements Serializab
     }
 
 
-
     private static class NaturalOrderComparator<E extends Comparable<? super E>> implements Comparator<E> {
         @Override
         public int compare(E o1, E o2) {
@@ -388,4 +379,3 @@ final public class SkiplistSet<E> extends AbstractSet<E> /*implements Serializab
     }
 
 }
-

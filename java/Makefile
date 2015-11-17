@@ -77,13 +77,17 @@ compilev:
 	${ANT} -v jardeuce
 
 
-
-notx:
+withupdates:
 	${JAVA} ${JAVAOPT} \
 	-cp bin \
 	contention.benchmark.Test \
-	-v -W 2 -u 30 -a 0 -s 10 -d 2000 -t ${N_THREADS} -i 4096 -r 8192 -b ${BENCH_CLASS}
+	-v -W 20 -u 30 -a 0 -s 10 -d 10000 -t ${N_THREADS} -i 4096 -r 8192 -b ${BENCH_CLASS}
 
+noupdates:
+	${JAVA} ${JAVAOPT} \
+	-cp bin \
+	contention.benchmark.Test \
+	-v -W 20 -u 30 -a 0 -s 0 -d 10000 -t ${N_THREADS} -i 4096 -r 8192 -b ${BENCH_CLASS}
 
 test:
 	${JAVA} ${JAVAOPT} \

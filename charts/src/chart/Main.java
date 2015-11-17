@@ -67,7 +67,7 @@ public class Main {
            Configuration conf = new Configuration(Configuration.VERSION_2_3_23);
            conf.setClassLoaderForTemplateLoading(Thread.currentThread().getContextClassLoader(), "");
 
-           Template template = conf.getTemplate("chat_html_template.ftl");
+           Template template = conf.getTemplate(args[2]);
            template.process(d, new PrintWriter(System.out));
            File out = new File(args[1]);
            PrintWriter pw =new PrintWriter(new FileOutputStream(out));

@@ -7,7 +7,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class SynchronizedSet implements CompositionalIntSet {
 
-    private Set set = Collections.synchronizedSet(SkiplistSet.create(new Comparator<Integer>(){
+    private Set set = Collections.synchronizedSet(SeqSkipListSet.create(new Comparator<Integer>(){
         @Override
         public int compare(Integer o1, Integer o2) {
             return o1 - o2;

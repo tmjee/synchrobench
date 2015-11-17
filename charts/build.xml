@@ -20,8 +20,14 @@
             </fileset>
         </copy>
         <java classpathref="classpath" classname="chart.Main">
-            <arg value="${basedir}/../java/result/extracted-results.txt" />
-            <arg value="${basedir}/../java/result/chart.html"/>
+            <arg value="${basedir}/../java/result/extracted-results-withupdates.txt" />
+            <arg value="${basedir}/../java/result/chart-withupdates.html"/>
+            <arg value="chart_html_template_withupdates.ftl"/>
+        </java>
+        <java classpathref="classpath" classname="chart.Main">
+            <arg value="${basedir}/../java/result/extracted-results-noupdates.txt" />
+            <arg value="${basedir}/../java/result/chart-noupdates.html"/>
+            <arg value="chart_html_template_noupdates.ftl"/>
         </java>
     </target>
 

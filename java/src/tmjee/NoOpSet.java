@@ -10,12 +10,12 @@ import java.util.concurrent.ThreadLocalRandom;
 public class NoOpSet implements CompositionalIntSet {
 
 
-    private Set<Integer> set = Collections.synchronizedSet(SkiplistSet.create(new Comparator<Integer>() {
+    private Set<Integer> set = SkiplistSet.create(new Comparator<Integer>() {
         @Override
         public int compare(Integer o1, Integer o2) {
             return o1 - o2;
         }
-    }));
+    });
 
     @Override
     public void fill(int range, long size) {

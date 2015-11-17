@@ -14,15 +14,21 @@
 
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
-                ['Thread', 'Sync', 'Conc', "Noop"],
+                ['Thread', 'SynchronizedSkipListSet', 'ConcurrentSkipListSet', "Baseline"],
                 <#list data?keys as dk>
                     ['${data[dk].getThreads()}', ${data[dk].getSync()?string("##############.####")}, ${data[dk].getConc()?string("##############.####")}, ${data[dk].getNoop()?string("##############.####")}]<#if dk?has_next>,</#if>
                 </#list>
             ]);
 
             var options = {
-                title: 'Performance',
-                legend: { position: 'bottom' }
+                title: 'Performance (With Updates)',
+                legend: { position: 'bottom' },
+                hAxis: {
+                    title: 'Threads'
+                },
+                vAxis: {
+                    title: 'Ops/secs'
+                }
             };
 
             var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
@@ -31,14 +37,18 @@
         }
     </script>
     <pre>
+	$\{JAVA} $\{JAVAOPT\} \
+	-cp bin \
+	contention.benchmark.Test \
+	-v -W 20 -u 30 -a 0 -s 10 -d 10000 -t $\{N_THREADS\} -i 4096 -r 8192 -b $\{BENCH_CLASS\}
     </pre>
 
     <table border="1">
         <tr>
             <td>Thread</td>
-            <td>Sync</td>
-            <td>Conc</td>
-            <td>Noop</td>
+            <td>Synchronized SkipListSet</td>
+            <td>ConcurrentSkipListSet</td>
+            <td>Baseline</td>
         </tr>
         <#list data?keys as dk>
             <tr>
