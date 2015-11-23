@@ -48,6 +48,7 @@
             <td>Thread</td>
             <td>Synchronized SkipListSet</td>
             <td>ConcurrentSkipListSet</td>
+            <td>MyConcurrentSkipListSet</td>
             <td>Baseline</td>
         </tr>
     <#list data?keys as dk>
@@ -55,7 +56,8 @@
             <td>${data[dk].getThreads()}</td>
             <td>${data[dk].getSync()?string("##############.####")}</td>
             <td>${data[dk].getConc()?string("##############.####")}</td>
-            <td>${data[dk].getNoop()?string("##############.####")}</td>
+            <td>${data[dk].getMyConc()?string("##############.####")}</td>
+            <td>${data[dk].getBaseline()?string("##############.####")}</td>
         </tr>
     </#list>
     </table>
