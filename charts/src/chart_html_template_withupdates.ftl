@@ -14,9 +14,9 @@
 
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
-                ['Thread', 'SynchronizedSkipListSet', 'ConcurrentSkipListSet', "Baseline"],
+                ['Thread', 'SynchronizedSkipListSet', 'ConcurrentSkipListSet', "MyConcurrentSkipListSet", "Baseline"],
                 <#list data?keys as dk>
-                    ['${data[dk].getThreads()}', ${data[dk].getSync()?string("##############.####")}, ${data[dk].getConc()?string("##############.####")}, ${data[dk].getNoop()?string("##############.####")}]<#if dk?has_next>,</#if>
+                    ['${data[dk].getThreads()}', ${data[dk].getSync()?string("##############.####")}, ${data[dk].getConc()?string("##############.####")}, ${data[dk].getMyConc()?string("##############.####")},${data[dk].getBaseline()?string("##############.####")}]<#if dk?has_next>,</#if>
                 </#list>
             ]);
 
@@ -57,7 +57,7 @@
                 <td>${data[dk].getSync()?string("##############.####")}</td>
                 <td>${data[dk].getConc()?string("##############.####")}</td>
                 <td>${data[dk].getMyConc()?string("##############.####")}</td>
-                <td>${data[dk].getNoop()?string("##############.####")}</td>
+                <td>${data[dk].getBaseline()?string("##############.####")}</td>
             </tr>
         </#list>
     </table>
