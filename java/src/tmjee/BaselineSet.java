@@ -15,80 +15,88 @@ public class BaselineSet implements CompositionalIntSet {
 
     @Override
     public void fill(int range, long size) {
-        try {
+        /*try {
             while(set.size() < size) {
                 set.addInt(ThreadLocalRandom.current().nextInt(range));
                 //set.add(ThreadLocalRandom.current().nextInt(range));
             }
         }catch(Throwable t) {
-        }
+        }*/
     }
 
     @Override
     public boolean addInt(int x) {
-        try {
+        /*try {
            return set.addInt(x);
             //return set.add(x);
         } catch(Throwable t) {}
-        return false;
+        */
+        return true;
     }
 
     @Override
     public boolean removeInt(int x) {
-        try {
+        /*try {
             return set.removeInt(x);
             //return set.remove(x);
         } catch(Throwable t) {}
-        return false;
+        */
+        return true;
     }
 
     @Override
     public boolean containsInt(int x) {
-        try {
+        /*try {
             return set.containsInt(x);
             //return set.contains(x);
         } catch(Throwable t) {}
-        return false;
+        */
+        return true;
     }
 
     @Override
     public Object getInt(int x) {
-        try {
+        /*try {
             return set.getInt(x);
             //return set.contains(x) ? x : null;
         } catch(Throwable t) {}
-        return null;
+        */
+        return x;
     }
 
     @Override
     public boolean addAll(Collection<Integer> c) {
-        try {
+        /*try {
             return set.addAll(c);
         } catch(Throwable t) { }
-        return false;
+        */
+        return true;
     }
 
     @Override
     public boolean removeAll(Collection<Integer> c) {
-        try {
+        /*try {
             return set.removeAll(c);
         } catch(Throwable t) {}
-        return false;
+        */
+        return true;
     }
 
     @Override
     public int size() {
-        try {
+        /*try {
             return set.size();
         }catch(Throwable t) {}
+        */
         return 0;
     }
 
     @Override
     public void clear() {
-        try {
+        /*try {
            set.clear();
         } catch(Exception e) { }
+        */
     }
 
     @Override
