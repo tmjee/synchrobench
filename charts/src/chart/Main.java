@@ -37,13 +37,13 @@ public class Main {
                         data.put(threads, new Data(threads));
                    }
                    Data d = data.get(threads);
-                   if (bench.endsWith("ConcurrentSkipListSet")) {
+                   if (bench.endsWith(".ConcurrentSkipListSet")) {
                        d.conc = ops;
-                   } else if(bench.endsWith("BaselineSet")) {
+                   } else if(bench.endsWith(".BaselineSet")) {
                        d.baseline = ops;
-                   } else if (bench.endsWith("SynchronizedSet")) {
+                   } else if (bench.endsWith(".SynchronizedSet")) {
                        d.sync = ops;
-                   } else if (bench.endsWith("MyConcurrentSkipListSet")) {
+                   } else if (bench.endsWith(".MyConcurrentSkipListSet")) {
                        d.myconc = ops;
                    }
 
@@ -58,10 +58,9 @@ public class Main {
        }
 
         for(Data d : data.values()) {
-            System.out.println("Threads\tBaseline\tConc\tSync");
-            System.out.println(format("%s\t%f\t%f\t%f", d.getThreads(), d.getBaseline(), d.getConc(), d.getSync()));
+            System.out.println("Threads\tBaseline\tConc\tMyConc\tSync");
+            System.out.println(format("%s\t%f\t%f\t%f\t%f", d.getThreads(), d.getBaseline(), d.getConc(), d.getMyConc(), d.getSync()));
         }
-
 
 
            Map<String, Object> d = new HashMap<String, Object>();

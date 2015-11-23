@@ -1,45 +1,41 @@
 package tmjee;
 
 import contention.abstractions.CompositionalIntSet;
+import skiplists.sequential.SequentialSkipListIntSet;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class SynchronizedSet implements CompositionalIntSet {
 
-    private Set set = Collections.synchronizedSet(tmjee.impl.SeqSkipListSet.create(new Comparator<Integer>() {
-        @Override
-        public int compare(Integer o1, Integer o2) {
-            return o1 - o2;
-        }
-    }));
+    private final SequentialSkipListIntSet set = new SequentialSkipListIntSet();
 
 
     @Override
     public synchronized void fill(int range, long size) {
         while(set.size() < size) {
-            set.add(ThreadLocalRandom.current().nextInt(range));
+            set.addInt(ThreadLocalRandom.current().nextInt(range));
         }
     }
 
     @Override
     public synchronized boolean addInt(int x) {
-        return set.add(x);
+        return set.addInt(x);
     }
 
     @Override
     public synchronized boolean removeInt(int x) {
-        return set.remove(x);
+        return set.removeInt(x);
     }
 
     @Override
     public synchronized boolean containsInt(int x) {
-        return set.contains(x);
+        return set.containsInt(x);
     }
 
     @Override
     public synchronized Object getInt(int x) {
-        return set.contains(x) ? x : null;
+        return set.containsInt(x) ? x : null;
     }
 
     @Override

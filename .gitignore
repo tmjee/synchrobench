@@ -7,5 +7,6 @@ out/
 java/lib/rt_*.jar
 java/result/*.txt
 java/result/*.html
-
+java/temp/
+java/lib/compositional-deucestm-0.1.jar
 
