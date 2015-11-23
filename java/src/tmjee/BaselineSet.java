@@ -7,14 +7,16 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class BaselineSet implements CompositionalIntSet {
 
-    private final BaselineSkipListSet set = new BaselineSkipListSet();
+    //private final BaselineSkipListSet set = new BaselineSkipListSet();
+    private final MySeqSkipListSet<Integer> set = new MySeqSkipListSet<Integer>();
 
 
     @Override
     public void fill(int range, long size) {
         try {
             while(set.size() < size) {
-                set.addInt(ThreadLocalRandom.current().nextInt(range));
+                //set.addInt(ThreadLocalRandom.current().nextInt(range));
+                set.add(ThreadLocalRandom.current().nextInt(range));
             }
         }catch(Throwable t) {
         }
@@ -23,7 +25,8 @@ public class BaselineSet implements CompositionalIntSet {
     @Override
     public boolean addInt(int x) {
         try {
-           return set.addInt(x);
+           //return set.addInt(x);
+            return set.add(x);
         } catch(Throwable t) {}
         return false;
     }
@@ -31,7 +34,8 @@ public class BaselineSet implements CompositionalIntSet {
     @Override
     public boolean removeInt(int x) {
         try {
-            return set.removeInt(x);
+            //return set.removeInt(x);
+            return set.remove(x);
         } catch(Throwable t) {}
         return false;
     }
@@ -39,7 +43,8 @@ public class BaselineSet implements CompositionalIntSet {
     @Override
     public boolean containsInt(int x) {
         try {
-            return set.containsInt(x);
+            //return set.containsInt(x);
+            return set.contains(x);
         } catch(Throwable t) {}
         return false;
     }
@@ -47,7 +52,8 @@ public class BaselineSet implements CompositionalIntSet {
     @Override
     public Object getInt(int x) {
         try {
-            return set.getInt(x);
+            //return set.getInt(x);
+            return set.contains(x) ? x : null;
         } catch(Throwable t) {}
         return null;
     }
