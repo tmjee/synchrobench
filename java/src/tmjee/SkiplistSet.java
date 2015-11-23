@@ -16,6 +16,7 @@ import java.util.NoSuchElementException;
 import java.util.PriorityQueue;
 import java.util.Random;
 import java.util.SortedSet;
+import java.util.concurrent.atomic.AtomicReferenceArray;
 
 /**
  * <b>Note: This class should only be used for testing. It provides no practical
@@ -102,7 +103,7 @@ final public class SkiplistSet<E> extends AbstractSet<E> /*implements Serializab
     private final transient Node<E> head = new Node<E>(null, MAX_LEVEL);
     private final Comparator<? super E> comparator;
     @SuppressWarnings("unchecked")
-    private final transient Node<E>[] update = new Node[MAX_LEVEL];
+    private final transient AtomicReferenceArray<Node<E>> update = new AtomicReferenceArray<Node<E>>(new Node[MAX_LEVEL]);
     private final transient int[] index = new int[MAX_LEVEL];
     volatile transient int modCount = 0;
     volatile transient int size = 0;
@@ -110,7 +111,7 @@ final public class SkiplistSet<E> extends AbstractSet<E> /*implements Serializab
     private SkiplistSet(final Comparator<? super E> comparator) {
         this.comparator = comparator;
         for (int i = 0; i < MAX_LEVEL; i++)
-            head.next[i] = head;
+            head.next.set(i, head);
     }
 
 
@@ -183,15 +184,15 @@ final public class SkiplistSet<E> extends AbstractSet<E> /*implements Serializab
         int i;
         int idx = 0;
         for (i = level - 1; i >= 0; i--) {
-            while (x.next[i] != y && comparator.compare(x.next[i].element, e) < 0)
-                x = x.next[i];
-            y = x.next[i];
-            update[i] = x;
+            while (x.next.get(i) != y && comparator.compare(x.next.get(i).element, e) < 0)
+                x = x.next.get(i);
+            y = x.next.get(i);
+            update.set(i, x);
             index[i] = idx;
         }
         if (newLevel > level) {
             for (i = level; i < newLevel; i++)
-                update[i] = head;
+                update.set(i, head);
             level = newLevel;
         }
         if (x.next().element != null && comparator.compare(x.next().element, e) == 0)
@@ -199,8 +200,8 @@ final public class SkiplistSet<E> extends AbstractSet<E> /*implements Serializab
         x = new Node<E>(e, newLevel);
         for (i = 0; i < level; i++)
             if (i < newLevel) {
-                x.next[i] = update[i].next[i];
-                update[i].next[i] = x;
+                x.next.set(i, update.get(i).next.get(i));
+                update.get(i).next.set(i, x);
             }
         modCount++;
         size++;
@@ -224,9 +225,9 @@ final public class SkiplistSet<E> extends AbstractSet<E> /*implements Serializab
         final E element = (E) o;
         Node<E> curr = head;
         for (int i = level - 1; i >= 0; i--) {
-            while (curr.next[i] != head && comparator.compare(curr.next[i].element, element) < 0)
-                curr = curr.next[i];
-            update[i] = curr;
+            while (curr.next.get(i) != head && comparator.compare(curr.next.get(i).element, element) < 0)
+                curr = curr.next.get(i);
+            update.set(i,curr);
         }
         curr = curr.next();
         if (curr == head || comparator.compare(curr.element, element) != 0)
@@ -243,7 +244,7 @@ final public class SkiplistSet<E> extends AbstractSet<E> /*implements Serializab
     @Override
     public void clear() {
         for (int i = 0; i < MAX_LEVEL; i++)
-            head.next[i] = head;
+            head.next.set(i, head);
         modCount++;
         size = 0;
     }
@@ -336,16 +337,16 @@ final public class SkiplistSet<E> extends AbstractSet<E> /*implements Serializab
 
     private final static class Node<E> {
         private final E element;
-        private final Node<E>[] next;
+        private final AtomicReferenceArray<Node<E>> next;
 
         @SuppressWarnings("unchecked")
         private Node(final E element, final int size) {
             this.element = element;
-            next = new Node[size];
+            next = new AtomicReferenceArray<Node<E>>(new Node[size]);
         }
 
         private Node<E> next() {
-            return next[0];
+            return next.get(0);
         }
     }
 
@@ -356,12 +357,12 @@ final public class SkiplistSet<E> extends AbstractSet<E> /*implements Serializab
         return randomLevel;
     }
 
-    private void delete(final Node<E> node, final Node<E>[] update) {
+    private void delete(final Node<E> node, final AtomicReferenceArray<Node<E>> update) {
         for (int i = 0; i < level; i++)
-            if (update[i].next[i] == node) {
-                update[i].next[i] = node.next[i];
+            if (update.get(i).next.get(i) == node) {
+                update.get(i).next.set(i, node.next.get(i));
             }
-        while (head.next[level - 1] == head && level > 1)
+        while (head.next.get(level - 1) == head && level > 1)
             level--;
         modCount++;
         size--;
@@ -370,8 +371,8 @@ final public class SkiplistSet<E> extends AbstractSet<E> /*implements Serializab
     private Node<E> search(final E element) {
         Node<E> curr = head;
         for (int i = level - 1; i >= 0; i--)
-            while (curr.next[i] != head && comparator.compare(curr.next[i].element, element) < 0)
-                curr = curr.next[i];
+            while (curr.next.get(i) != head && comparator.compare(curr.next.get(i).element, element) < 0)
+                curr = curr.next.get(i);
         curr = curr.next();
         if (curr != head && comparator.compare(curr.element, element) == 0)
             return curr;
