@@ -8,7 +8,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class BaselineSet implements CompositionalIntSet {
 
     //private final BaselineSkipListSet set = new BaselineSkipListSet();
-    private final MySeqSkipListSet<Integer> set = new MySeqSkipListSet<Integer>();
+    private final tmjee.impl.MySeqSkipListSet<Integer> set = new tmjee.impl.MySeqSkipListSet<Integer>();
 
 
     @Override

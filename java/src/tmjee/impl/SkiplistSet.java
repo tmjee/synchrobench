@@ -4,7 +4,7 @@
  *
  *  Modified to serve as a baseline for multi-thread performance benchmark.
  */
-package tmjee;
+package tmjee.impl;
 
 import java.util.AbstractSet;
 import java.util.Collection;

@@ -1,8 +1,6 @@
-package tmjee;
+package tmjee.impl;
 
 import contention.abstractions.CompositionalIntSet;
-import org.deuce.Atomic;
-import skiplists.sequential.SequentialSkipListIntSet;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;

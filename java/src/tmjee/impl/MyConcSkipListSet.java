@@ -1,4 +1,4 @@
-package tmjee;
+package tmjee.impl;
 
 import java.util.AbstractSet;
 import java.util.Iterator;
@@ -81,7 +81,7 @@ public class MyConcSkipListSet<E> extends AbstractSet<E> {
 
 
     private void addMarker(Node<E> n) {
-        Marker<E> m = new Marker<>(null, n.n.length()-1);
+        Marker<E> m = new Marker<E>(null, n.n.length()-1);
 
         for (int a=0; a<m.n.length(); a++) {
             Node<E> x = n.n.get(a);
@@ -98,7 +98,7 @@ public class MyConcSkipListSet<E> extends AbstractSet<E> {
         do {
             Node<E> p[] = path(e);
             if (p[0] == HEAD || compare(p[0].v, e) != 0) {
-                Node<E> t = new Node<>(e, random(MAX_LEVELS));
+                Node<E> t = new Node<E>(e, random(MAX_LEVELS));
 
                 Node<E> _n = p[0].n.get(0);
                 t.n.set(0, _n);

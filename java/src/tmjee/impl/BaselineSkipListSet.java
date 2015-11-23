@@ -1,4 +1,4 @@
-package tmjee;
+package tmjee.impl;
 
 import java.util.Collection;
 import java.util.Random;
