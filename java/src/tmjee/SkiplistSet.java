@@ -184,7 +184,8 @@ final public class SkiplistSet<E> extends AbstractSet<E> /*implements Serializab
         int i;
         int idx = 0;
         for (i = level - 1; i >= 0; i--) {
-            while (x.next.get(i) != y && comparator.compare(x.next.get(i).element, e) < 0)
+            Node<E> n = x.next.get(i);
+            while (n != y && comparator.compare(n.element, e) < 0)
                 x = x.next.get(i);
             y = x.next.get(i);
             update.set(i, x);

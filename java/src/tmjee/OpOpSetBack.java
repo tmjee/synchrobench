@@ -7,10 +7,11 @@ import skiplists.sequential.SequentialSkipListIntSet;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class NoOpSet implements CompositionalIntSet {
+public class OpOpSetBack implements CompositionalIntSet {
 
 
-    private Set<Integer> set = SkiplistSet.create(new Comparator<Integer>() {
+    private Set<Integer> set =
+        SkiplistSet.create(new Comparator<Integer>() {
         @Override
         public int compare(Integer o1, Integer o2) {
             return o1 - o2;
