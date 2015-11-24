@@ -14,9 +14,9 @@
 
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
-                ['Thread', 'SynchronizedSkipListSet', 'ConcurrentSkipListSet', "MyConcurrentSkipListSet", "Baseline"],
+                ['Thread', 'SynchronizedSkipListSet', 'ConcurrentSkipListSet', "MyConcurrentSkipListSet", "Baseline2", "Baseline"],
                 <#list data?keys as dk>
-                    ['${data[dk].getThreads()}', ${data[dk].getSync()?string("##############.####")}, ${data[dk].getConc()?string("##############.####")}, ${data[dk].getMyConc()?string("##############.####")},${data[dk].getBaseline()?string("##############.####")}]<#if dk?has_next>,</#if>
+                    ['${data[dk].getThreads()}', ${data[dk].getSync()?string("##############.####")}, ${data[dk].getConc()?string("##############.####")}, ${data[dk].getMyConc()?string("##############.####")},${data[dk].getBaseline2()?string("##############.####")}, ${data[dk].getBaseline()?string("##############.####")}]<#if dk?has_next>,</#if>
                 </#list>
             ]);
 
@@ -49,6 +49,7 @@
             <td>Synchronized SkipListSet</td>
             <td>ConcurrentSkipListSet</td>
             <td>MyConcurrentSkipListSet</td>
+            <td>Baseline2</td>
             <td>Baseline</td>
         </tr>
         <#list data?keys as dk>
@@ -57,6 +58,7 @@
                 <td>${data[dk].getSync()?string("##############.####")}</td>
                 <td>${data[dk].getConc()?string("##############.####")}</td>
                 <td>${data[dk].getMyConc()?string("##############.####")}</td>
+                <td>${data[dk].getBaseline2()?string("##############.####")}</td>
                 <td>${data[dk].getBaseline()?string("##############.####")}</td>
             </tr>
         </#list>

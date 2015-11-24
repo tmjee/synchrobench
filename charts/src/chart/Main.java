@@ -41,6 +41,8 @@ public class Main {
                        d.conc = ops;
                    } else if(bench.endsWith(".BaselineSet")) {
                        d.baseline = ops;
+                   } else if(bench.endsWith(".Baseline2Set")) {
+                       d.baseline2 = ops;
                    } else if (bench.endsWith(".SynchronizedSet")) {
                        d.sync = ops;
                    } else if (bench.endsWith(".MyConcurrentSkipListSet")) {
@@ -58,8 +60,8 @@ public class Main {
        }
 
         for(Data d : data.values()) {
-            System.out.println("Threads\tBaseline\tConc\tMyConc\tSync");
-            System.out.println(format("%s\t%f\t%f\t%f\t%f", d.getThreads(), d.getBaseline(), d.getConc(), d.getMyConc(), d.getSync()));
+            System.out.println("Threads\tBaseline\tBaseline2\tConc\tMyConc\tSync");
+            System.out.println(format("%s\t%f\t%f\5%f\t%f\t%f", d.getThreads(), d.getBaseline(), d.getBaseline2(), d.getConc(), d.getMyConc(), d.getSync()));
         }
 
 
@@ -87,6 +89,7 @@ public class Main {
         private double myconc;
         private double sync;
         private double baseline;
+        private double baseline2;
 
         public Data(String threads) {
             this.threads = threads;
@@ -95,6 +98,7 @@ public class Main {
         public double getConc() { return conc; }
         public double getSync() { return sync;}
         public double getBaseline() { return baseline; }
+        public double getBaseline2() { return baseline2; }
         public String getThreads() { return threads; }
         public double getMyConc() { return myconc; }
     }

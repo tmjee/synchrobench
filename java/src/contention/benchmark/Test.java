@@ -80,7 +80,8 @@ public class Test {
 			Integer v = s_random.get().nextInt(range);
 			switch(benchType) {
 			case INTSET:
-				if (setBench.addInt(v)) {
+				boolean r = setBench.addInt(v);
+				if (r) {
 					i--;
 				}
 				break;
