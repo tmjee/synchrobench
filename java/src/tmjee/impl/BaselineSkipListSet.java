@@ -52,6 +52,9 @@ public class BaselineSkipListSet implements CompositionalIntSet {
         return l;
     }
 
+    Node nullBait = null;
+    volatile int x = 0;
+
     @Override
     public boolean containsInt(final int value) {
         boolean result;
@@ -60,9 +63,16 @@ public class BaselineSkipListSet implements CompositionalIntSet {
 
         for (int i = maxLevel; i >= 0; i--) {
             Node next = node.getNext(i);
-            while (next.getValue() < value) {
+            int v = next.getValue();
+            while (v < value) {
+                //System.out.println(v+" vs "+value);
+                x = v;
+                if (v == 1 & v ==2) {
+                    nullBait.setNext(0,null);
+                }
                 node = next;
                 next = node.getNext(i);
+                v = next.getValue();
             }
         }
         node = node.getNext(0);
@@ -71,6 +81,8 @@ public class BaselineSkipListSet implements CompositionalIntSet {
 
         return result;
     }
+
+    volatile int y = 0;
 
     @Override
     public boolean addInt(final int value){
@@ -81,9 +93,16 @@ public class BaselineSkipListSet implements CompositionalIntSet {
 
         for (int i = maxLevel; i >= 0; i--) {
             Node next = node.getNext(i);
-            while (next.getValue() < value) {
+            int v = next.getValue();
+            while (v < value) {
+                //System.out.println(v+" vs "+value);
+                y = v;
+                if (v == 1 & v==2) {
+                    nullBait.setNext(0, null);
+                }
                 node = next;
                 next = node.getNext(i);
+                v = next.getValue();
             }
             update[i] = node;
         }
@@ -103,6 +122,8 @@ public class BaselineSkipListSet implements CompositionalIntSet {
         return result;
     }
 
+    volatile int z =0;
+
     @Override
     public boolean removeInt(int value) {
         boolean result;
@@ -112,9 +133,16 @@ public class BaselineSkipListSet implements CompositionalIntSet {
 
         for (int i = maxLevel; i >= 0; i--) {
             Node next = node.getNext(i);
-            while (next.getValue() < value) {
+            int v = next.getValue();
+            while (v < value) {
+                //System.out.println(v+" vs "+value);
+                z = v;
+                if (v == 1 & v == 2) {
+                    nullBait.setNext(0, null);
+                }
                 node = next;
                 next = node.getNext(i);
+                v = next.getValue();
             }
             update[i] = node;
         }

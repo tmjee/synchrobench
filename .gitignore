@@ -9,4 +9,5 @@ java/result/*.txt
 java/result/*.html
 java/temp/
 java/lib/compositional-deucestm-0.1.jar
+java/hotspot*.log
 

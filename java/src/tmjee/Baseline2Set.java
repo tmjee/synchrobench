@@ -3,6 +3,7 @@ package tmjee;
 import contention.abstractions.CompositionalIntSet;
 
 import skiplists.sequential.SequentialSkipListIntSet;
+import tmjee.impl.BaselineSkipListSet;
 
 import java.util.Collection;
 import java.util.concurrent.ThreadLocalRandom;
@@ -10,7 +11,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Baseline2Set implements CompositionalIntSet {
 
     //private final BaselineSkipListSet set = new BaselineSkipListSet();
-    private final SequentialSkipListIntSet set = new SequentialSkipListIntSet();
+    private final BaselineSkipListSet set = new BaselineSkipListSet();
     //private final tmjee.impl.MySeqSkipListSet<Integer> set = new tmjee.impl.MySeqSkipListSet<Integer>();
 
 

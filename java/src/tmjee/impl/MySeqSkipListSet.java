@@ -142,7 +142,7 @@ public class MySeqSkipListSet<E> extends AbstractSet<E> {
     private static class Node<E> {
         final E v;
         final Node<E>[] n;
-        boolean d;
+        volatile boolean d;
 
         private Node(E v, int levels) {
             this.v = v;

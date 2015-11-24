@@ -2,6 +2,7 @@ package tmjee;
 
 import contention.abstractions.CompositionalIntSet;
 import skiplists.sequential.SequentialSkipListIntSet;
+import tmjee.impl.MySeqSkipListSet;
 
 import java.util.Collection;
 import java.util.concurrent.ThreadLocalRandom;
@@ -9,94 +10,95 @@ import java.util.concurrent.ThreadLocalRandom;
 public class BaselineSet implements CompositionalIntSet {
 
     //private final BaselineSkipListSet set = new BaselineSkipListSet();
-    private final SequentialSkipListIntSet set = new SequentialSkipListIntSet();
+    //private final SequentialSkipListIntSet set = new SequentialSkipListIntSet();
     //private final tmjee.impl.MySeqSkipListSet<Integer> set = new tmjee.impl.MySeqSkipListSet<Integer>();
+    private final MySeqSkipListSet<Integer> set = new MySeqSkipListSet<Integer>();
 
 
     @Override
     public void fill(int range, long size) {
-        /*try {
+        try {
             while(set.size() < size) {
-                set.addInt(ThreadLocalRandom.current().nextInt(range));
-                //set.add(ThreadLocalRandom.current().nextInt(range));
+                //set.addInt(ThreadLocalRandom.current().nextInt(range));
+                set.add(ThreadLocalRandom.current().nextInt(range));
             }
         }catch(Throwable t) {
-        }*/
+        }
     }
 
     @Override
     public boolean addInt(int x) {
-        /*try {
-           return set.addInt(x);
-            //return set.add(x);
+        try {
+           //return set.addInt(x);
+            return set.add(x);
         } catch(Throwable t) {}
-        */
+
         return true;
     }
 
     @Override
     public boolean removeInt(int x) {
-        /*try {
-            return set.removeInt(x);
-            //return set.remove(x);
+        try {
+            //return set.removeInt(x);
+            return set.remove(x);
         } catch(Throwable t) {}
-        */
+
         return true;
     }
 
     @Override
     public boolean containsInt(int x) {
-        /*try {
-            return set.containsInt(x);
-            //return set.contains(x);
+        try {
+            //return set.containsInt(x);
+            return set.contains(x);
         } catch(Throwable t) {}
-        */
+
         return true;
     }
 
     @Override
     public Object getInt(int x) {
-        /*try {
-            return set.getInt(x);
-            //return set.contains(x) ? x : null;
+        try {
+            //return set.getInt(x);
+            return set.contains(x) ? x : null;
         } catch(Throwable t) {}
-        */
+
         return x;
     }
 
     @Override
     public boolean addAll(Collection<Integer> c) {
-        /*try {
+        try {
             return set.addAll(c);
         } catch(Throwable t) { }
-        */
+
         return true;
     }
 
     @Override
     public boolean removeAll(Collection<Integer> c) {
-        /*try {
+        try {
             return set.removeAll(c);
         } catch(Throwable t) {}
-        */
+
         return true;
     }
 
     @Override
     public int size() {
-        /*try {
+        try {
             return set.size();
         }catch(Throwable t) {}
-        */
+
         return 0;
     }
 
     @Override
     public void clear() {
-        /*try {
+        try {
            set.clear();
         } catch(Exception e) { }
-        */
+
     }
 
     @Override
