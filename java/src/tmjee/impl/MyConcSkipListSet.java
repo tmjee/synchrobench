@@ -176,7 +176,14 @@ public class MyConcSkipListSet<E> extends AbstractSet<E> {
     }
 
     private int random(int max) {
-        return ThreadLocalRandom.current().nextInt(max+1);
+        ThreadLocalRandom random = ThreadLocalRandom.current();
+        int l = 0;
+        int r = random.nextInt(10);
+        while(r >= 4) {
+            l++;
+            r = random.nextInt(10);
+        }
+        return Math.min(l, max);
     }
 
 

@@ -8,7 +8,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import static java.lang.String.format;
 
 public class MySeqSkipListSet<E> extends AbstractSet<E> {
-    private final int MAX_LEVELS = 16;
+    private final int MAX_LEVELS = 64;
 
     private final Head<E> HEAD = new Head<E>(MAX_LEVELS);
     private final Tail<E> TAIL = new Tail<E>(MAX_LEVELS);
