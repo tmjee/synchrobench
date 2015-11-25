@@ -76,17 +76,15 @@ compilev:
 	${ANT} -v jarbench
 	${ANT} -v jardeuce
 
-
+# -XX:+UnlockDiagnosticVMOptions -XX:+TraceClassLoading -XX:+LogCompilation -XX:+PrintAssembly
 withupdates:
 	${JAVA} ${JAVAOPT} \
-	-XX:+UnlockDiagnosticVMOptions -XX:+TraceClassLoading -XX:+LogCompilation -XX:+PrintAssembly \
 	-cp bin \
 	contention.benchmark.Test \
 	-v -W 5 -u 30 -a 0 -s 10 -d 5000 -t ${N_THREADS} -i 4096 -r 131072 -b ${BENCH_CLASS}
 
 noupdates:
 	${JAVA} ${JAVAOPT} \
-	-XX:+UnlockDiagnosticVMOptions -XX:+TraceClassLoading -XX:+LogCompilation -XX:+PrintAssembly \
 	-cp bin \
 	contention.benchmark.Test \
 	-v -W 5 -u 30 -a 0 -s 0 -d 5000 -t ${N_THREADS} -i 4096 -r 131072 -b ${BENCH_CLASS}
