@@ -8,7 +8,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import static java.lang.String.format;
 
 public class MySeqSkipListSet<E> extends AbstractSet<E> {
-    private final int MAX_LEVELS = 3;
+    private final int MAX_LEVELS = 16;
 
     private final Head<E> HEAD = new Head<E>(MAX_LEVELS);
     private final Tail<E> TAIL = new Tail<E>(MAX_LEVELS);
@@ -122,7 +122,13 @@ public class MySeqSkipListSet<E> extends AbstractSet<E> {
     }
 
     private int random(int max) {
-        return ThreadLocalRandom.current().nextInt(max+1);
+        int l = 0;
+        int r = ThreadLocalRandom.current().nextInt(10);
+        while(r >= 4) {
+            l++;
+            r = ThreadLocalRandom.current().nextInt(10);
+        }
+        return Math.min(l,max);
     }
 
 
