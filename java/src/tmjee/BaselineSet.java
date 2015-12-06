@@ -2,6 +2,7 @@ package tmjee;
 
 import contention.abstractions.CompositionalIntSet;
 import skiplists.sequential.SequentialSkipListIntSet;
+import tmjee.impl.BrokenSet;
 import tmjee.impl.MySeqSkipListSet;
 
 import java.util.Collection;
@@ -10,9 +11,10 @@ import java.util.concurrent.ThreadLocalRandom;
 public class BaselineSet implements CompositionalIntSet {
 
     //private final BaselineSkipListSet set = new BaselineSkipListSet();
-    private final SequentialSkipListIntSet set = new SequentialSkipListIntSet();
+    //private final SequentialSkipListIntSet set = new SequentialSkipListIntSet();
     //private final tmjee.impl.MySeqSkipListSet<Integer> set = new tmjee.impl.MySeqSkipListSet<Integer>();
     //private final MySeqSkipListSet<Integer> set = new MySeqSkipListSet<Integer>();
+    private final BrokenSet<Integer> set = new BrokenSet<Integer>();
 
 
 
@@ -20,8 +22,8 @@ public class BaselineSet implements CompositionalIntSet {
     public void fill(int range, long size) {
         try {
             while(set.size() < size) {
-                set.addInt(ThreadLocalRandom.current().nextInt(range));
-                //set.add(ThreadLocalRandom.current().nextInt(range));
+                //set.addInt(ThreadLocalRandom.current().nextInt(range));
+                set.add(ThreadLocalRandom.current().nextInt(range));
             }
         }catch(Throwable t) {
         }
@@ -30,8 +32,8 @@ public class BaselineSet implements CompositionalIntSet {
     @Override
     public boolean addInt(int x) {
         try {
-           return set.addInt(x);
-           // return set.add(x);
+           //return set.addInt(x);
+            return set.add(x);
         } catch(Throwable t) {}
 
         return true;
@@ -40,8 +42,8 @@ public class BaselineSet implements CompositionalIntSet {
     @Override
     public boolean removeInt(int x) {
         try {
-            return set.removeInt(x);
-            //return set.remove(x);
+           // return set.removeInt(x);
+            return set.remove(x);
         } catch(Throwable t) {}
 
         return true;
@@ -50,8 +52,8 @@ public class BaselineSet implements CompositionalIntSet {
     @Override
     public boolean containsInt(int x) {
         try {
-            return set.containsInt(x);
-            //return set.contains(x);
+            //return set.containsInt(x);
+            return set.contains(x);
         } catch(Throwable t) {}
 
         return true;
@@ -60,8 +62,8 @@ public class BaselineSet implements CompositionalIntSet {
     @Override
     public Object getInt(int x) {
         try {
-            return set.getInt(x);
-            //return set.contains(x) ? x : null;
+            //return set.getInt(x);
+            return set.contains(x) ? x : null;
         } catch(Throwable t) {}
 
         return x;
