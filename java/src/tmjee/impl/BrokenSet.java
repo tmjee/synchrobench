@@ -1,4 +1,5 @@
 package tmjee.impl;
+
 import java.util.AbstractSet;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -12,7 +13,9 @@ import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
  */
 public class BrokenSet<E> extends AbstractSet<E> {
 
-    //private AtomicLong size;
+
+
+//    AtomicLong acc = new AtomicLong();
 
 
     public void prettyPrint() {
@@ -85,14 +88,14 @@ public class BrokenSet<E> extends AbstractSet<E> {
 
     @Override
     public int size() {
-        //return size.intValue();
-
+        //return acc.intValue();
+        //return 100;
         long count=0;
         Node<E> n = findFirst();
         while(n != null) {
             //if (!n.isBase() && !n.isMarker() && !n.isDeleted()) {
             //if (!n.isDeleted())
-                count++;
+            count++;
             //}
             n = n.r;
         }
@@ -140,7 +143,7 @@ public class BrokenSet<E> extends AbstractSet<E> {
                 int c = compare(e, v);
                 if (c == 0) {
                     n.markDelete();
-                    //n.helpDeleteThisNode(b,f);
+                    n.helpDeleteThisNode(b,f);
                     return true;
                 }
                 return false;
@@ -173,16 +176,19 @@ public class BrokenSet<E> extends AbstractSet<E> {
                     }
 
 
-                    int c = compare(e,n.v);
+                    int c = compare(e,v);
                     if (c == 0) {
                         return false;
                     }
                 }
 
                 // new Node
-                z = new Node<E>(e,n);
+                z = new Node<E>(null, e,n);
+
                 if(!b.casR(n, z)) {
                     break;
+                } else {
+                    //acc.incrementAndGet();
                 }
                 break outer;
             }
@@ -401,6 +407,7 @@ public class BrokenSet<E> extends AbstractSet<E> {
     }
 
     public static class Node<E> {
+        final AtomicLong acc;
         final E v;
         volatile Node<E> r;
         volatile boolean d;
@@ -408,7 +415,8 @@ public class BrokenSet<E> extends AbstractSet<E> {
         static AtomicReferenceFieldUpdater<Node, Node> updater =
             AtomicReferenceFieldUpdater.<Node, Node>newUpdater(Node.class, Node.class, "r");
 
-        Node(E v, Node<E> r) {
+        Node(AtomicLong acc, E v, Node<E> r) {
+            this.acc = acc;
             this.v = v;
             this.r = r;
             this.d = false;
@@ -446,7 +454,10 @@ public class BrokenSet<E> extends AbstractSet<E> {
                 } else {
                     predecessor.casR(this, successor.r);
                 }*/
-                predecessor.casR(this, successor);
+                boolean b = predecessor.casR(this, successor);
+                //if (b) {
+                //acc.decrementAndGet();
+                //}
             }
         }
 
@@ -479,7 +490,7 @@ public class BrokenSet<E> extends AbstractSet<E> {
 
     static class Base<E> extends Node<E> {
         Base(Node<E> r) {
-            super(null, r);
+            super(null, null, r);
         }
         /*@Override
         boolean isMarker(){
