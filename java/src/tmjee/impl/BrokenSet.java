@@ -142,7 +142,7 @@ public class BrokenSet<E> extends AbstractSet<E> {
                 int c = compare(e, v);
                 if (c == 0) {
                     n.markDelete();
-                    n.helpDeleteThisNode(b,f);
+                    //n.helpDeleteThisNode(b,f);
                     return true;
                 }
                 return false;
@@ -335,7 +335,7 @@ public class BrokenSet<E> extends AbstractSet<E> {
                 if (b.isDeleted() /*|| n.isMarker()*/) { // b deleted and marked
                     break;
                 }
-                int c = compare(e, n.v);
+                int c = compare(e, v);
                 if (c==0){
                     return n;
                 }

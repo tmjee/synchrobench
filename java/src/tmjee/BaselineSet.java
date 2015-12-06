@@ -21,9 +21,8 @@ public class BaselineSet implements CompositionalIntSet {
     @Override
     public void fill(int range, long size) {
         try {
-            while(set.size() < size) {
-                //set.addInt(ThreadLocalRandom.current().nextInt(range));
-                set.add(ThreadLocalRandom.current().nextInt(range));
+            while (this.size() < size) {
+                this.addInt(ThreadLocalRandom.current().nextInt(range));
             }
         }catch(Throwable t) {
         }
