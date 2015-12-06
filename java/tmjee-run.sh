@@ -4,7 +4,7 @@ rm -fr result/*.txt
 
 #for RECIPE in "withupdates" "noupdates"; do
 for RECIPE in "withupdates" ; do
-    for BENCH_CLASS in "tmjee.BaselineSet" "tmjee.MyConcurrentSkipListSet" "tmjee.ConcurrentSkipListSet" "tmjee.SynchronizedSet"; do
+    for BENCH_CLASS in "tmjee.Baseline2Set" "tmjee.BaselineSet" "tmjee.MyConcurrentSkipListSet" "tmjee.ConcurrentSkipListSet" "tmjee.SynchronizedSet"; do
 		for N_THREADS in 1 2 4 8 16 32 64; do
 			echo "working on ${BENCH_CLASS} - ${N_THREADS} - ${RECIPE}"
 			t=$(printf "%03d" ${N_THREADS})

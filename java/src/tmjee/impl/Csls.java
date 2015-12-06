@@ -4,6 +4,7 @@ import java.util.AbstractSet;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
 
 /**
@@ -135,6 +136,7 @@ public class Csls<E> extends AbstractSet<E> {
                     n.markDelete();
                     return true;
                 }
+                return false;
             }
         }
         return false;
@@ -181,16 +183,16 @@ public class Csls<E> extends AbstractSet<E> {
         }
 
         // build Index
-        /*int rnd = ThreadLocalRandom.current().nextInt(10);
+        int rnd = ThreadLocalRandom.current().nextInt(10);
         int level=1, max;
         while(rnd >5) {
             level++;
             rnd = ThreadLocalRandom.current().nextInt(10);
-        }*/
+        }
 
         HeadIndex h = head;
-        int max = h.level;
-        int level = max+1;
+        max = h.level;
+        //int level = max+1;
         Index<E> idx = null;
         if (level <= max) {
             for (int a=1; a<=level; a++) {
@@ -229,7 +231,7 @@ public class Csls<E> extends AbstractSet<E> {
         splice: for (int insertionLevel = level;;) {
             int j =  h.level;
             for (Index<E> q = h, r = q.r, t = idx; ; ) {
-                if (/*r == null ||*/ q == null) {
+                if (q == null) {
                     break splice;
                 }
                 if (r != null) {
@@ -272,6 +274,7 @@ public class Csls<E> extends AbstractSet<E> {
             }
         }
         return added;
+
     }
 
 
@@ -431,7 +434,6 @@ public class Csls<E> extends AbstractSet<E> {
         }
 
         void helpDeleteThisNode(Node<E> predecessor, Node<E> successor) {
-            Thread.dumpStack();
             if (predecessor.r == this && r == successor) {
                 if (successor == null || (!successor.isMarker())) {
                     appendMarkerOnThisNode(successor);
@@ -552,4 +554,3 @@ public class Csls<E> extends AbstractSet<E> {
         }
     }
 }
-
