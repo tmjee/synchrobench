@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
  */
 public class BrokenSet<E> extends AbstractSet<E> {
 
-    private AtomicLong size;
+    //private AtomicLong size;
 
 
     public void prettyPrint() {
@@ -85,9 +85,8 @@ public class BrokenSet<E> extends AbstractSet<E> {
 
     @Override
     public int size() {
-        return size.intValue();
+        //return size.intValue();
 
-        /*
         long count=0;
         Node<E> n = findFirst();
         while(n != null) {
@@ -99,7 +98,6 @@ public class BrokenSet<E> extends AbstractSet<E> {
         }
         return (int)count;
         //return (count>=Integer.MAX_VALUE?Integer.MAX_VALUE:(int)count);
-        */
     }
 
     private Node<E> findFirst() {
@@ -182,11 +180,9 @@ public class BrokenSet<E> extends AbstractSet<E> {
                 }
 
                 // new Node
-                z = new Node<E>(size, e,n);
+                z = new Node<E>(e,n);
                 if(!b.casR(n, z)) {
                     break;
-                } else {
-                    size.incrementAndGet();
                 }
                 break outer;
             }
@@ -405,7 +401,6 @@ public class BrokenSet<E> extends AbstractSet<E> {
     }
 
     public static class Node<E> {
-        final  AtomicLong acc;
         final E v;
         volatile Node<E> r;
         volatile boolean d;
@@ -413,8 +408,7 @@ public class BrokenSet<E> extends AbstractSet<E> {
         static AtomicReferenceFieldUpdater<Node, Node> updater =
             AtomicReferenceFieldUpdater.<Node, Node>newUpdater(Node.class, Node.class, "r");
 
-        Node(AtomicLong acc, E v, Node<E> r) {
-            this.acc = acc;
+        Node(E v, Node<E> r) {
             this.v = v;
             this.r = r;
             this.d = false;
@@ -452,10 +446,7 @@ public class BrokenSet<E> extends AbstractSet<E> {
                 } else {
                     predecessor.casR(this, successor.r);
                 }*/
-                boolean b = predecessor.casR(this, successor);
-                if (b) {
-                    acc.decrementAndGet();
-                }
+                predecessor.casR(this, successor);
             }
         }
 
@@ -488,7 +479,7 @@ public class BrokenSet<E> extends AbstractSet<E> {
 
     static class Base<E> extends Node<E> {
         Base(Node<E> r) {
-            super(null, null, r);
+            super(null, r);
         }
         /*@Override
         boolean isMarker(){
