@@ -134,7 +134,7 @@ public class BrokenSet<E> extends AbstractSet<E> {
                 v = n.v;
                 f = n.r;
                 if (n.isDeleted()) { // n is deleted and may not  be marked yet
-                    n.helpDeleteThisNode(b,f);
+                    //n.helpDeleteThisNode(b,f);  xxx:
                     break;
                 }
                 if (b.isDeleted() /*|| n.isMarker()*/) { // b is deleted
@@ -168,7 +168,7 @@ public class BrokenSet<E> extends AbstractSet<E> {
                         break; // inconsistent read
                     }
                     if (n.isDeleted()) { // deleted but might not be marked
-                        n.helpDeleteThisNode(b,f);
+                        //n.helpDeleteThisNode(b,f);  xxx:
                         break;
                     }
                     if (b.isDeleted() /*|| n.isMarker()*/) { // b delete
@@ -269,7 +269,7 @@ public class BrokenSet<E> extends AbstractSet<E> {
                         break;
                     }
                     if (t.n.isDeleted()) {
-                        findNode(e);
+                        //findNode(e);  xxx:
                         break splice;
                     }
                     if (--insertionLevel == 0) {
@@ -366,6 +366,7 @@ public class BrokenSet<E> extends AbstractSet<E> {
 
     static class Itr<E> implements Iterator<E> {
         final BrokenSet s;
+        volatile Node<E> lastLast;
         volatile Node<E> next;
         volatile Node<E> last;
 
@@ -376,6 +377,7 @@ public class BrokenSet<E> extends AbstractSet<E> {
         }
 
         void advance() {
+            lastLast = last;
             last = next;
             Node<E> tmp = next.r;
             while(tmp != null && ((tmp.isDeleted() || tmp.isBase() /*|| tmp.isMarker()*/)))  {
@@ -400,9 +402,10 @@ public class BrokenSet<E> extends AbstractSet<E> {
 
         @Override
         public void remove() {
-            if (last == null)
+            if (last == null || (last instanceof Base))
                 throw new IllegalStateException("must call next first");
             last.markDelete();
+            last.helpDeleteThisNode(lastLast, next);
         }
     }
 
