@@ -15,9 +15,6 @@ public class BrokenSet<E> extends AbstractSet<E> {
 
 
 
-//    AtomicLong acc = new AtomicLong();
-
-
     public void prettyPrint() {
         Index<E> p = head;
         Index<E> c = null;
@@ -137,7 +134,7 @@ public class BrokenSet<E> extends AbstractSet<E> {
                     //n.helpDeleteThisNode(b,f);  xxx:
                     break;
                 }
-                if (b.isDeleted()) { //|| n.isMarker()) { // b is deleted
+                if (b.isDeleted() { //|| n.isMarker()) { // b is deleted
                     break;
                 }*/
                 int c = compare(e, v);
@@ -162,16 +159,17 @@ public class BrokenSet<E> extends AbstractSet<E> {
             for (Node<E> b = findPredecessor(e), n = b.r; ;) {
                 if (n != null) {
                     E v = n.v;
+                    /*
                     Node<E> f = n.r;
 
-                    /*if (b.r != n) {
+                    if (b.r != n) {
                         break; // inconsistent read
                     }
                     if (n.isDeleted()) { // deleted but might not be marked
                         //n.helpDeleteThisNode(b,f);  xxx:
                         break;
                     }
-                    if (b.isDeleted()) {   //|| n.isMarker()) { // b delete
+                    if (b.isDeleted()) { //|| n.isMarker()) { // b delete
                         break;
                     }*/
 
@@ -220,7 +218,7 @@ public class BrokenSet<E> extends AbstractSet<E> {
                 idx = idxs[a] = new Index<E>(z, null, idx);
             }
 
-            for (; ; ) {
+            for (; ; ) {  // create HeadIndexes (new ones)
                 h = head;
                 int oldLevel = h.level;
                 if (level <= oldLevel) {
