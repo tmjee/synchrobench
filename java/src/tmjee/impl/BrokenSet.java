@@ -133,13 +133,13 @@ public class BrokenSet<E> extends AbstractSet<E> {
                 }
                 v = n.v;
                 f = n.r;
-                if (n.isDeleted()) { // n is deleted and may not  be marked yet
+                /*if (n.isDeleted()) { // n is deleted and may not  be marked yet
                     //n.helpDeleteThisNode(b,f);  xxx:
                     break;
                 }
-                if (b.isDeleted() /*|| n.isMarker()*/) { // b is deleted
+                if (b.isDeleted()) { //|| n.isMarker()) { // b is deleted
                     break;
-                }
+                }*/
                 int c = compare(e, v);
                 if (c == 0) {
                     n.markDelete();
@@ -164,16 +164,16 @@ public class BrokenSet<E> extends AbstractSet<E> {
                     E v = n.v;
                     Node<E> f = n.r;
 
-                    if (b.r != n) {
+                    /*if (b.r != n) {
                         break; // inconsistent read
                     }
                     if (n.isDeleted()) { // deleted but might not be marked
                         //n.helpDeleteThisNode(b,f);  xxx:
                         break;
                     }
-                    if (b.isDeleted() /*|| n.isMarker()*/) { // b delete
+                    if (b.isDeleted()) {   //|| n.isMarker()) { // b delete
                         break;
-                    }
+                    }*/
 
 
                     int c = compare(e,v);
@@ -268,10 +268,10 @@ public class BrokenSet<E> extends AbstractSet<E> {
                     if(!(added)) {
                         break;
                     }
-                    if (t.n.isDeleted()) {
+                    /*if (t.n.isDeleted()) {
                         //findNode(e);  xxx:
                         break splice;
-                    }
+                    }*/
                     if (--insertionLevel == 0) {
                         break splice;
                     }
