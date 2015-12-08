@@ -1,5 +1,6 @@
 package tmjee.impl;
 
+
 import java.util.AbstractSet;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -27,9 +28,9 @@ public class BrokenSet<E> extends AbstractSet<E> {
                 System.out.print("/");
                 System.out.print((c.n.v != null) ? c.n.v : "n");
                 String s = "";
-                /*if (c.n.isDeleted()) {
+                if (c.n.isDeleted()) {
                     s+="d";
-                }*/
+                }
                 /*if (c.n.isMarker()) {
                     s+="m";
                 }*/
@@ -103,9 +104,9 @@ public class BrokenSet<E> extends AbstractSet<E> {
             if ( (n = (b=head.n).r) == null) {
                 return null;
             }
-            /*if (!n.isDeleted()) {
+            if (!n.isDeleted()) {
                 return n;
-            }*/
+            }
             n.helpDeleteThisNode(b,n.r);
         }
     }
@@ -116,45 +117,6 @@ public class BrokenSet<E> extends AbstractSet<E> {
     }
 
     private boolean doRemove(E e) {
-
-
-        for (;;) {
-            for (Index<E> q = head, r = q.r, d; ; ) {
-                if (r != null) {
-                    Node<E> n = r.n;
-                    /*if (n.isDeleted()) { // index deleted
-                        if (!q.unlink(r)) {
-                            break;
-                        }
-                        r = q.r;
-                        continue;
-                    }*/
-                    int c = compare(e, n.v);
-                    if (c>0) {
-                        q = r;
-                        r = q.r;
-                        continue;
-                    } else if (c == 0) {
-                        if (!q.unlink(r)) {
-                            break;
-                        }
-                        n.helpDeleteThisNode(q.n, q.r.n);
-                        return true;
-                    }
-                } else {
-                    return false;
-                }
-                q = q.d;
-                r = q.r;
-            }
-        }
-
-
-
-
-
-/*
-
         E v = null;
         Node<E> f = null;
         outer: for(;;) {
@@ -174,9 +136,9 @@ public class BrokenSet<E> extends AbstractSet<E> {
                 if (b.isDeleted() { //|| n.isMarker()) { // b is deleted
                     break;
                 }*/
-                /*int c = compare(e, v);
+                int c = compare(e, v);
                 if (c == 0) {
-                    //n.markDelete();
+                    n.markDelete();
                     n.helpDeleteThisNode(b,f);
                     return true;
                 }
@@ -184,7 +146,6 @@ public class BrokenSet<E> extends AbstractSet<E> {
             }
         }
         return false;
-            */
     }
 
 
@@ -285,13 +246,13 @@ public class BrokenSet<E> extends AbstractSet<E> {
                 if (r != null) {
                     Node<E> n=r.n;
                     int c = compare(e, n.v);
-                    /*if (n.isDeleted()) {
+                    if (n.isDeleted()) {
                         if(!q.unlink(r)) { // someone else beats us to it
                             break;
                         }
                         r = q.r;
                         continue;
-                    }*/
+                    }
                     if (c>0) {
                         q = r;
                         r = q.r;
@@ -332,13 +293,13 @@ public class BrokenSet<E> extends AbstractSet<E> {
             for (Index<E> q = head, r = q.r, d; ; ) {
                 if (r != null) {
                     Node<E> n = r.n;
-                    /*if (n.isDeleted()) { // index deleted
+                    if (n.isDeleted()) { // index deleted
                         if (!q.unlink(r)) {
                             break;
                         }
                         r = q.r;
                         continue;
-                    }*/
+                    }
                     if (compare(e, n.v)>0) {
                         q = r;
                         r = q.r;
@@ -366,13 +327,13 @@ public class BrokenSet<E> extends AbstractSet<E> {
                 if (b.r != n) { // inconsistent read
                     break;
                 }
-                /*if (n.isDeleted()) {        // n deleted, but may not be marked
-                    n.helpDeleteThisNode(b, f);
+                if (n.isDeleted()) {        // n deleted, but may not be marked
+                    //n.helpDeleteThisNode(b, f);
                     break;
                 }
-                if (b.isDeleted() //|| n.isMarker()) { // b deleted and marked
+                if (b.isDeleted() /*|| n.isMarker()*/) { // b deleted and marked
                     break;
-                }*/
+                }
                 int c = compare(e, v);
                 if (c==0){
                     return n;
@@ -416,7 +377,7 @@ public class BrokenSet<E> extends AbstractSet<E> {
             lastLast = last;
             last = next;
             Node<E> tmp = next.r;
-            while(tmp != null && ((/*tmp.isDeleted() ||*/ tmp.isBase() /*|| tmp.isMarker()*/)))  {
+            while(tmp != null && ((tmp.isDeleted() || tmp.isBase() /*|| tmp.isMarker()*/)))  {
                 tmp = tmp.r;
             }
             next = tmp;
@@ -440,25 +401,25 @@ public class BrokenSet<E> extends AbstractSet<E> {
         public void remove() {
             if (last == null || (last instanceof Base))
                 throw new IllegalStateException("must call next first");
-            //last.markDelete();
+            last.markDelete();
             last.helpDeleteThisNode(lastLast, next);
         }
     }
 
     public static class Node<E> {
-        //final AtomicLong acc;
+        final AtomicLong acc;
         final E v;
         volatile Node<E> r;
-        //volatile boolean d;
+        volatile boolean d;
 
         static AtomicReferenceFieldUpdater<Node, Node> updater =
             AtomicReferenceFieldUpdater.<Node, Node>newUpdater(Node.class, Node.class, "r");
 
         Node(AtomicLong acc, E v, Node<E> r) {
-            //this.acc = acc;
+            this.acc = acc;
             this.v = v;
             this.r = r;
-            //this.d = false;
+            this.d = false;
         }
 
 
@@ -470,13 +431,13 @@ public class BrokenSet<E> extends AbstractSet<E> {
             return false;
         }*/
 
-        /*boolean isDeleted() {
+        boolean isDeleted() {
             return d;
-        }*/
+        }
 
-        /*void markDelete() {
+        void markDelete() {
             d = true;
-        }*/
+        }
 
         boolean isBase() {
             return false;
@@ -536,10 +497,10 @@ public class BrokenSet<E> extends AbstractSet<E> {
             return false;
         }*/
 
-        /*@Override
+        @Override
         boolean isDeleted() {
             return false;
-        }*/
+        }
 
         @Override
         boolean isBase() {
